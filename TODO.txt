@@ -1,0 +1,15 @@
+GENERAL:
+	- If the port is under 1024, it is a privileged port.
+		Add 8000 to the port number to get the exposed port.
+	- rm les volumes si problems
+
+	MAKEFILE:
+	- creer dossier /home/<login>/transcendence/postgresql
+
+NGINX :
+	- Few problems because not all the contener are up.
+		Must see later :
+			- If the upstream is well defined. (30 & 37)
+			- Why I cannot access mime.types. (43)
+			- It proxy_pass is well defined. (83 & 92)
+
