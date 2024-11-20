@@ -65,7 +65,7 @@ services:
     build:
       context: ./Backend_API  # Répertoire où se trouve ton Dockerfile pour l'API
       dockerfile: Dockerfile  # Nom du Dockerfile
-    container_name: api  # Nom du conteneur
+    # container_name: api  # Nom du conteneur
     ports:
       - "8000:8000"  # Expose l'API sur le port 8000
     networks:

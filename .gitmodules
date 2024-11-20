@@ -1,3 +1,6 @@
 [submodule "Frontend/front_transcendence"]
 	path = Frontend/front_transcendence
 	url = git@github.com:LaTeam-Trancendence/front_transcendence.git
+[submodule "Backend_API/back"]
+	path = Backend_API/back
+	url = git@github.com:LaTeam-Trancendence/back.git

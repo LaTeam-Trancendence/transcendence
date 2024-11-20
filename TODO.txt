@@ -3,7 +3,7 @@ GENERAL:
 		Add 8000 to the port number to get the exposed port.
 	- rm les volumes si problems
 
-	MAKEFILE:
+MAKEFILE:
 	- creer dossier /home/<login>/transcendence/postgresql
 	- creer dossier	/home/<login>/transcendence/media
 
@@ -22,6 +22,7 @@ API:
 		- Voir si on garde la partie maintenance
 	* crontab
 		- Changer le nom de la fonction d'anonimisation (7 & 10)
+	Definir le port
 
 
 		FAIRE A LIAISON GUNICORN / NGINX
