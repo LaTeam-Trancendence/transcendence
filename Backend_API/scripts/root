@@ -6,6 +6,6 @@
 0	3	*	*	6	run-parts /etc/periodic/weekly
 0	5	1	*	*	run-parts /etc/periodic/monthly
 0 0 * * * /usr/bin/python /var/www/html/manage.py clean_user
-*/1 * * * * /bin/touch /etc/verify_crontab
+* * * * * /bin/touch /etc/test
 # */1 * * * * /usr/bin/python /var/www/html/manage.py clean_user
 # THIS FILE MUST USE LF end of line sequence or no good

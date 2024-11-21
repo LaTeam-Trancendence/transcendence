@@ -36,8 +36,8 @@ services:
         condition: service_healthy
       postgres:  # Assure-toi que PostgreSQL est démarré avant Nginx
         condition: service_healthy
-      api:  # Assure-toi que l'API est démarrée avant Nginx
-        condition: service_healthy
+      #api:  # Assure-toi que l'API est démarrée avant Nginx
+      #   condition: service_healthy
 
 
   postgres:
@@ -75,7 +75,7 @@ services:
       - path: .env  # Charge les variables d'environnement
         required: true
     volumes:
-      - media:{HOME}/transcendence/media  # Persistance des fichiers média
+      - media_data:/app/media  # Persistance des fichiers média
     depends_on:
       postgres:  # Assure-toi que PostgreSQL est démarré avant l'API
         condition: service_healthy
@@ -85,6 +85,18 @@ services:
       retries: 10
 
 
+  prometheus:
+    build:
+      context: ./Prometheus  # Répertoire où se trouve ton Dockerfile pour Prometheus
+      dockerfile: Dockerfile  # Nom du Dockerfile
+    container_name: prometheus_custom  # Nom du conteneur
+    ports:
+      - "9090:9090"  # Expose Prometheus sur le port 9090
+    networks:
+      - transcendence
+    volumes:
+      - prometheus_data:/prometheus-xyzabc  # Monte le fichier de configuration
+
 
 volumes:
   postgres_data:  # Volume pour stocker les données PostgreSQL
@@ -93,10 +105,16 @@ volumes:
       device: ${HOME}/transcendence/postgresql
       o: bind
 
-  media:  # Volume pour stocker les fichiers média
+  media_data:  # Volume pour stocker les fichiers média
     driver_opts:
       type: none
       device: ${HOME}/transcendence/media
+      o: bind
+
+  prometheus_data:  # Volume pour stocker les données Prometheus
+    driver_opts:
+      type: none
+      device: ${HOME}/transcendence/prometheus
       o: bind
 
 networks:
