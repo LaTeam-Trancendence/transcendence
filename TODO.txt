@@ -6,6 +6,7 @@ GENERAL:
 MAKEFILE:
 	- creer dossier /home/<login>/transcendence/postgresql
 	- creer dossier	/home/<login>/transcendence/media
+	- creer dossier /home/<login>/transcendence/prometheus
 
 NGINX :
 	- Few problems because not all the contener are up.
