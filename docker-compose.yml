@@ -95,7 +95,26 @@ services:
     networks:
       - transcendence
     volumes:
-      - prometheus_data:/prometheus-xyzabc  # Monte le fichier de configuration
+      - prometheus_data:/prometheus-xyzabc  # Persistance des données
+
+
+
+  grafana:
+    build:
+      context: ./Grafana  # Répertoire où se trouve ton Dockerfile pour Grafana
+      dockerfile: Dockerfile  # Nom du Dockerfile
+    container_name: grafana  # Nom du conteneur
+    ports:
+      - "3000:3000"  # Expose Grafana sur le port 3000
+    networks:
+      - transcendence
+    env_file:
+      - path: .env  # Charge les variables d'environnement
+        required: true
+    depends_on:
+      - prometheus  # Assure-toi que Prometheus est démarré avant Grafana
+    volumes:
+      - grafana_data:/var/lib/grafana  # Persistance des données
 
 
 volumes:
@@ -115,6 +134,12 @@ volumes:
     driver_opts:
       type: none
       device: ${HOME}/transcendence/prometheus
+      o: bind
+
+  grafana_data:  # Volume pour stocker les données Grafana
+    driver_opts:
+      type: none
+      device: ${HOME}/transcendence/grafana
       o: bind
 
 networks:

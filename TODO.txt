@@ -1,12 +1,13 @@
 GENERAL:
 	- If the port is under 1024, it is a privileged port.
 		Add 8000 to the port number to get the exposed port.
-	- rm les volumes si problems
+	- rm les volumes si problemes
 
 MAKEFILE:
 	- creer dossier /home/<login>/transcendence/postgresql
 	- creer dossier	/home/<login>/transcendence/media
 	- creer dossier /home/<login>/transcendence/prometheus
+	- creer dossier /home/<login>/transcendence/grafana
 
 NGINX :
 	- Few problems because not all the contener are up.
@@ -23,7 +24,9 @@ API:
 		- Voir si on garde la partie maintenance
 	* crontab
 		- Changer le nom de la fonction d'anonimisation (7 & 10)
-	Definir le port
+
+GRAFANA:
+	Mettre le mot de passe dans le .env
 
 
 		FAIRE A LIAISON GUNICORN / NGINX
