@@ -16,7 +16,7 @@ RUN apk add --no-cache \
 # Copier le fichier SQL dans l'image
 # COPY ./back/database_dump.sql /docker-entrypoint-initdb.d/init.sql
 
-COPY . /app
+# COPY ./back/transcendance /app
 
 COPY scripts/test.py /app/test.py
 
@@ -28,8 +28,8 @@ COPY ./scripts /app/scripts
 RUN chmod +x /app/scripts/*.sh
 
 # Mettre à jour pip et installer les dépendances Python
-RUN pip install --no-cache-dir --upgrade pip && \
-	pip install --no-cache-dir -r requirements.txt
+# RUN pip install --no-cache-dir --upgrade pip && \
+# 	# pip install --no-cache-dir -r requirements.txt
 
 COPY ./scripts/root /etc/crontabs/root
 # Give execution rights on the cron job

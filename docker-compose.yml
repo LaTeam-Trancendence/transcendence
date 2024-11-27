@@ -70,7 +70,7 @@ services:
       - "8000:8000"  # Expose l'API sur le port 8000
     networks:
       - transcendence
-    restart: no # Toujours redémarrer l'API
+    restart: always
     env_file:
       - path: .env  # Charge les variables d'environnement
         required: true
@@ -95,23 +95,7 @@ services:
     networks:
       - transcendence
     volumes:
-      - prometheus_data:/prometheus-xyzabc  # Persistance des données
-
-
-
-  grafana:
-    image: grafana/grafana:latest  # Utilise l'image officielle de Grafana
-    ports:
-      - "3000:3000"  # Expose Grafana sur le port 3000
-    networks:
-      - transcendence
-    env_file:
-      - path: .env  # Charge les variables d'environnement
-        required: true
-    depends_on:
-      - prometheus  # Assure-toi que Prometheus est démarré avant Grafana
-    volumes:
-      - grafana_data:/var/lib/grafana  # Persistance des données
+      - prometheus_data:/prometheus-xyzabc  # Monte le fichier de configuration
 
 
 volumes:
@@ -131,12 +115,6 @@ volumes:
     driver_opts:
       type: none
       device: ${HOME}/transcendence/prometheus
-      o: bind
-
-  grafana_data:  # Volume pour stocker les données Grafana
-    driver_opts:
-      type: none
-      device: ${HOME}/transcendence/grafana
       o: bind
 
 networks:
