@@ -1,0 +1,27 @@
+{
+    "Language":"Français",
+    "Team":"Equipe",
+    "Github":"Projet Github",
+    "Tournaments":"Tournois",
+
+    "TicTacToe":"Morpion",
+    "Descri_Pong":"Renvoyer la balle dans l'autre camp pour marquer un point, le premier à 5 gagne.",
+    "Descri_TicTacToe":"Faites une ligne de 3 signes consécutifs avant votre adversaire pour gagner.",
+    "Play":"Jouer",
+    "Preferences":"Préférences",
+    "Preferences_Games":"Préférences des jeux",
+    "Color1":"Couleur principale : ",
+    "Color2":"Couleur secondaire : ",
+    "Ball_Speed_Time":"Accélérer la vitesse de la balle en fonction du temps",
+    "Ball_Speed_Manual":"Vitesse de la balle :",
+    "Remove_Hit":"Retirer un coup de l'adversaire",
+    "Cancel":"Annuler les modifications",
+    "Apply":"Appliquer les modifications",
+
+    "Login":"Connexion",
+    "Register":"Inscription",
+    "Pseudo":"Pesudo",
+    "Password":"Mot de passe",
+    "Confirm_Password": "Confirmer le mot de passe",
+    "Profile_Image": "Image de profil (optionnel)"
+}

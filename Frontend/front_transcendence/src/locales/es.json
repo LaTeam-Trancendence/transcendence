@@ -1,0 +1,27 @@
+{
+    "Language":"Español",
+    "Team":"Equipo",
+    "Github":"Proyecto Github",
+    "Tournaments":"Torneos",
+
+    "TicTacToe":"Tres en raya",
+    "Descri_Pong":"Envía la pelota de vuelta al otro lado para anotar un punto, el primero en llegar a 5 gana.",
+    "Descri_TicTacToe":"Haz una línea de 3 signos consecutivos antes que tu oponente para ganar.",
+    "Play":"Jugar",
+    "Preferences":"Preferencias",
+    "Preferences_Games":"Preferencias de juego",
+    "Color1":"Color principal : ",
+    "Color2":"Color secundario : ",
+    "Ball_Speed_Time":"Acelera la velocidad de la pelota en función del tiempo",
+    "Ball_Speed_Manual":"Velocidad de la pelota :",
+    "Remove_Hit":"Eliminar un golpe del oponente",
+    "Cancel":"Cancelar cambios",
+    "Apply":"Aplicar cambios",
+
+    "Login":"Conexión",
+    "Register":"Inscripción",
+    "Pseudo":"Pesudo",
+    "Password":"Contraseña",
+    "Confirm_Password": "Confirmar contraseña",
+    "Profile_Image": "Imagen de perfil (opcional)"
+}
