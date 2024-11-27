@@ -70,7 +70,7 @@ services:
       - "8000:8000"  # Expose l'API sur le port 8000
     networks:
       - transcendence
-    restart: always
+    restart: no # Toujours redémarrer l'API
     env_file:
       - path: .env  # Charge les variables d'environnement
         required: true
@@ -100,10 +100,7 @@ services:
 
 
   grafana:
-    build:
-      context: ./Grafana  # Répertoire où se trouve ton Dockerfile pour Grafana
-      dockerfile: Dockerfile  # Nom du Dockerfile
-    container_name: grafana  # Nom du conteneur
+    image: grafana/grafana:latest  # Utilise l'image officielle de Grafana
     ports:
       - "3000:3000"  # Expose Grafana sur le port 3000
     networks:
