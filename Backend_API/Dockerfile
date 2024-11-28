@@ -16,7 +16,7 @@ RUN apk add --no-cache \
 # Copier le fichier SQL dans l'image
 # COPY ./back/database_dump.sql /docker-entrypoint-initdb.d/init.sql
 
-COPY ./Data /app
+COPY . /app
 
 # COPY scripts/test.py /app/test.py
 
