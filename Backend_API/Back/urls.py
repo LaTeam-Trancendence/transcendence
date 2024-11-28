@@ -24,5 +24,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
     path('api/', include('stats.urls')),
-    path('api/', include('player.urls'))
+    path('api/', include('player.urls')),
+    path('prometheus-xyzabc/', include('django_prometheus.urls'))
 ]

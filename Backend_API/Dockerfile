@@ -14,7 +14,7 @@ RUN apk add --no-cache \
     dcron
 
 # Copier le fichier SQL dans l'image
-# COPY ./back/database_dump.sql /docker-entrypoint-initdb.d/init.sql
+# COPY database_dump.sql /docker-entrypoint-initdb.d/dump.sql
 
 COPY . /app
 

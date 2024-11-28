@@ -50,15 +50,14 @@ services:
     networks:
       - transcendence
     env_file:
-      - path: .env  # Charge les variables d'environnement
-        required: true
+      - .env
     volumes:
       - postgres_data:/var/lib/postgresql  # Persistance des données
     healthcheck:
       test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-p", "5432", "-t", "2"]
       interval: 2s
       retries: 20
-    restart: always
+    restart: no #should be always
 
 
   api:
@@ -70,7 +69,7 @@ services:
       - "8000:8000"  # Expose l'API sur le port 8000
     networks:
       - transcendence
-    restart: always
+    restart: no #should be always
     env_file:
       - path: .env  # Charge les variables d'environnement
         required: true
@@ -80,7 +79,7 @@ services:
       postgres:  # Assure-toi que PostgreSQL est démarré avant l'API
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/players"]
       interval: 2s
       retries: 10
 

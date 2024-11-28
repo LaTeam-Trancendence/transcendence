@@ -9,4 +9,8 @@ done
 
 # Exécuter le fichier SQL
 echo "Executing SQL script..."
-psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -f /scripts/init.sql
+if [ ! psql -lqt | cut -d \| -f 1 | grep -qw "$POSTGRES_DB" ]
+then
+	psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -f /scripts/database_dump.sql
+fi
+
