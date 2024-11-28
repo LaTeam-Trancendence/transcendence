@@ -2,23 +2,23 @@ FROM python:3.11-alpine
 
 # Installer les dépendances nécessaires pour PostgreSQL
 RUN apk add --no-cache \
-	build-base \
-	linux-headers \
-	libffi-dev \
-	postgresql-dev \
-	postgresql-client \
-	musl-dev \
-	bash \
-	dcron \
-	py3-django \
-	py3-gunicorn
+    build-base \
+    linux-headers \
+    libffi-dev \
+    postgresql-dev \
+    postgresql-client \
+    musl-dev \
+    libpq-dev \
+    gcc \
+    bash \
+    dcron
 
 # Copier le fichier SQL dans l'image
 # COPY ./back/database_dump.sql /docker-entrypoint-initdb.d/init.sql
 
-# COPY ./back/transcendance /app
+COPY ./Data /app
 
-COPY scripts/test.py /app/test.py
+# COPY scripts/test.py /app/test.py
 
 # Définir le répertoire de travail
 WORKDIR /app
@@ -28,8 +28,9 @@ COPY ./scripts /app/scripts
 RUN chmod +x /app/scripts/*.sh
 
 # Mettre à jour pip et installer les dépendances Python
-# RUN pip install --no-cache-dir --upgrade pip && \
-# 	# pip install --no-cache-dir -r requirements.txt
+RUN python3 -m pip install --break-system-packages --no-cache-dir --upgrade pip && \
+    python3 -m pip install --break-system-packages --no-cache-dir gunicorn && \
+    python3 -m pip install --break-system-packages --no-cache-dir -r requirements.txt
 
 COPY ./scripts/root /etc/crontabs/root
 # Give execution rights on the cron job

@@ -1,0 +1,6 @@
+django==5.1
+django-cors-headers==4.6.0
+django-rest-framework
+psycopg2
+django-prometheus==1.0.15
+
