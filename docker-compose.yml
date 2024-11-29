@@ -57,7 +57,7 @@ services:
       test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-p", "5432", "-t", "2"]
       interval: 2s
       retries: 20
-    restart: no #should be always
+    restart: always #should be always
 
 
   api:
@@ -69,7 +69,7 @@ services:
       - "8000:8000"  # Expose l'API sur le port 8000
     networks:
       - transcendence
-    restart: no #should be always
+    restart: always #should be always
     env_file:
       - path: .env  # Charge les variables d'environnement
         required: true
