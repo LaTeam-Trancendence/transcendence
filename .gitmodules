@@ -1,6 +1,7 @@
 [submodule "Frontend/front_transcendence"]
 	path = Frontend/front_transcendence
 	url = https://github.com/LaTeam-Trancendence/front_transcendence.git
-[submodule "Backend_API"]
-	path = Backend_API
-	url = https://github.com/LaTeam-Trancendence/Data.git
+
+[submodule "Backend_API/Data"]
+	path = Backend_API/Data
+	url = git@github.com:LaTeam-Trancendence/Data.git
