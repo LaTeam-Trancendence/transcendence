@@ -12,7 +12,7 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 # Reste a gerer les amis en intergrant une liste
 
 class CustomUser(AbstractUser):
-    image = models.ImageField(upload_to='images_pics/', blank=True, null=True)
+    image = models.ImageField(upload_to='player_picture/', blank=True, null=True)
     
     # groups = models.ManyToManyField(
     #     Group,
@@ -36,6 +36,8 @@ class Player(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, 
                 related_name="player") 
     
+    friends = models.ManyToManyField("self", symmetrical=True, blank=True)
+    
     language = models.CharField(max_length=2, default="FR")
     
     #friends
@@ -49,6 +51,20 @@ class Player(models.Model):
     
     def __str__(self):
         return self.user.username
+    
+    """property ajoutes des propietes dynamiques aux models sans data, Calcul du total de parties jouées en temps reel."""  
+    @property
+    def total_games(self):
+        return self.win_pong + self.lose_pong + self.win_tictactoe + self.lose_tictactoe
+
+    """Calcul du pourcentage de victoires."""
+    @property
+    def win_rate(self):
+        total_games = self.total_games
+        if total_games == 0:
+            return 0
+        total_wins = self.win_pong + self.win_tictactoe
+        return round((total_wins / total_games) * 100, 2)
     
 # //________________________________________________\\
 

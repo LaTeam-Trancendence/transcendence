@@ -7,12 +7,62 @@ from stats.serializers import PlayerSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.permissions import IsAuthenticated
 
 # \\_________________________________________//
 
 
+class PlayerCreateView(APIView):
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        if not user.is_authenticated:
+            return Response(
+                {"Authentification requise pour créer un joueur."},
+                status=401)
+
+        data = request.data.copy()
+        data['user'] = user.id
+        serializer = PlayerSerializer(data=data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+    
+    def get(self, request):
+        players = Player.objects.all()
+        print(players)        
+        serializer = PlayerSerializer(players, many=True)
+        return Response(serializer.data)
+
+# class PlayerCreateView(APIView):
+#     def post(self, request, *args, **kwargs):
+#         ser = request.data.get("user")
+#         if not CustomUser:
+#             return Response(
+#                 {"Un utilisateur doit être associé au joueur."},
+#                 status=400)
+#         serializer = PlayerSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=201)
+#         return Response(serializer.errors, status=400)
+#     def get(self, request):
+#         players = Player.objects.all()  # Récupère tous les joueurs
+#         print(players)        
+#         serializer = PlayerSerializer(players, many=True)
+#         return Response(serializer.data)
+
 class statsPlayerView(APIView):
     
+    def post(self, request, *args, **kwargs):
+        serializer = PlayerSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+      
     # \\_______recupere les stats____________//
     
     def get(self, request, *args, **kwargs):
@@ -35,6 +85,7 @@ class statsPlayerView(APIView):
                     status_code=404)
                 
         else: 
+            #players = Player.objects.filter(status=True)
             players = Player.objects.all()
             serializer = PlayerSerializer(players, many=True)
             return CustomResponse.success(
@@ -42,7 +93,7 @@ class statsPlayerView(APIView):
                 message="Statistiques tous les joueurs ok",
                 status_code=200
             )
-        
+    
         # \\_______modifie les stats____________//
         
     def put(self, request, *args, **kwargs):
@@ -78,3 +129,15 @@ class statsPlayerView(APIView):
             message="Erreur lors de la mise à jour des statistiques.",
             status_code=400
         )
+
+class PlayerUpdateView(APIView):
+    permission_classes = [IsAuthenticated]
+    parser_classes = (MultiPartParser, FormParser)  # Pour accepter les fichiers
+
+    def post(self, request):
+        player = Player.objects.get(user=request.user)
+        serializer = PlayerSerializer(player, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)
