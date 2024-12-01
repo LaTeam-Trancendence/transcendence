@@ -1,0 +1,35 @@
+		ELK (Elasticsearch, Logstash, Kibana)
+
+Elasticsearch est comme un bibliothécaire super rapide qui stocke
+les logs et peut les retrouver en quelques secondes grâce à un système
+de recherche très puissant.
+C'est là où les logs sont enregistrés et indexés pour que tu puisses les
+consulter facilement.Les logs que les applications génèrent arrivent souvent
+sous différentes formes (par exemple, des fichiers, des données envoyées par
+des applications, etc.).
+
+Logstash agit comme un traducteur ou un organisateur : il prend les logs bruts,
+les transforme pour qu'ils soient clairs et organisés, puis les envoie à
+Elasticsearch.
+Par exemple : il peut enlever des informations inutiles ou ajouter des
+étiquettes pour dire d'où viennent les logs.
+
+Une fois que les logs sont bien stockés et organisés dans Elasticsearch,
+Kibana est là pour les rendre beaux et compréhensibles.
+C'est comme un tableau de bord interactif où tu peux :
+- Chercher des logs spécifiques (par exemple : "Il s'est passé hier à 15h ?").
+- Créer des graphiques et des tableaux pour analyser les données.
+- Voir en un coup d'œil si tout va bien ou si quelque chose ne tourne
+  pas rond dans ton système.
+
+Pourquoi utiliser la stack ELK ?
+
+- Gérer le chaos des logs :
+	Si tu as plusieurs applications ou services, ils génèrent tous des tonnes
+	de logs. ELK aide à tout centraliser.
+- Trouver les problèmes rapidement :
+	Tu peux rechercher des erreurs ou analyser	les performances de ton système
+	sans passer des heures à fouiller dans des fichiers.
+- Avoir une vue claire :
+	Avec Kibana, tu peux visualiser les données et détecter des tendances ou
+	des anomalies.

@@ -26,6 +26,3 @@ API:
 		- Changer le nom de la fonction d'anonimisation (7 & 10)
 	Definir le port
 
-
-		FAIRE A LIAISON GUNICORN / NGINX
-			VOIR DANS FICHIER DE CONFIGURATION DE NGINX
