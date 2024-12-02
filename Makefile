@@ -10,7 +10,7 @@ all: create-volumes
 	${DOCKER_COMPOSE} up -d
 
 # env:
-# 	./create_env.sh
+# 	./scripts/create_env.sh
 
 create-volumes:
 	@echo "Checking and creating volume directories if necessary..."
@@ -45,22 +45,21 @@ clean-volumes:
 	done
 
 submodule-back:
-	@echo "Cleaning Backend_API..."
-	@find Backend_API -mindepth 1 ! -path 'Backend_API/scripts/*' \
-	! -name 'Dockerfile' -exec rm -rf {} +
-	@echo "Adding or updating submodule..."
-	@git submodule add git@github.com:LaTeam-Trancendence/Data.git || \
-		git submodule update --remote
-	@echo "Entering Data directory..." &&  cd Data && \
-		echo "Copying contents of Data..." && cp -r * ../Backend_API/ && \
-		echo "Removing Data directory..." && cd .. && rm -rf Data
-	@echo "Process completed successfully!"
+	@echo "Resetting Data submodule..."
+	@bash scripts/submodule_back.sh
 
 submodule-front:
-	@echo "Adding or updating front submodule..."
-	@git submodule add git@github.com:LaTeam-Trancendence/front_transcendence.git || \
-		git submodule update --remote -- Frontend
+	@echo "Checking if the front_transcendence submodule exists..."
+	@if [ -d "Frontend/front_transcendence/.git" ]; then \
+		echo "Submodule exists. Updating..."; \
+		cd Frontend/front_transcendence && git pull origin main && cd ../..; \
+	else \
+		echo "Submodule does not exist. Adding..."; \
+		cd Frontend && \
+		git submodule add git@github.com:LaTeam-Trancendence/front_transcendence.git && cd ..; \
+	fi
 	@echo "Process completed successfully!"
+
 
 submodules: submodule-back submodule-front
 
