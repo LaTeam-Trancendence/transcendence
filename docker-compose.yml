@@ -4,7 +4,6 @@ services:
     build:
       context: ./Frontend  # Répertoire où se trouve ton Dockerfile pour le frontend
       dockerfile: Dockerfile  # Nom du Dockerfile
-    container_name: frontend  # Nom du conteneur
     env_file:
       - path: .env  # Charge les variables d'environnement
         required: true
@@ -22,7 +21,6 @@ services:
     build:
       context: ./Nginx  # Répertoire où se trouve ton Dockerfile pour Nginx
       dockerfile: Dockerfile  # Nom du Dockerfile
-    container_name: nginx-https  # Nom du conteneur
     ports:
       - "8443:8443"  # Expose Nginx sur le port HTTPS (443)
     networks:
@@ -46,7 +44,6 @@ services:
       dockerfile: Dockerfile  # Nom du Dockerfile
     ports:
       - "5432:5432"  # Expose PostgreSQL sur le port 5432
-    container_name: postgres  # Nom du conteneur
     networks:
       - transcendence
     env_file:
@@ -65,7 +62,6 @@ services:
     build:
       context: ./Backend_API  # Répertoire où se trouve ton Dockerfile pour l'API
       dockerfile: Dockerfile  # Nom du Dockerfile
-    # container_name: api  # Nom du conteneur
     ports:
       - "8000:8000"  # Expose l'API sur le port 8000
     networks:
@@ -89,7 +85,6 @@ services:
     build:
       context: ./Prometheus  # Répertoire où se trouve ton Dockerfile pour Prometheus
       dockerfile: Dockerfile  # Nom du Dockerfile
-    container_name: prometheus_custom  # Nom du conteneur
     ports:
       - "9090:9090"  # Expose Prometheus sur le port 9090
     networks:

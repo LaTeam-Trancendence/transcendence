@@ -8,4 +8,3 @@
 0 0 * * * /usr/bin/python /var/www/html/manage.py clean_user
 * * * * * /bin/touch /etc/test
 # */1 * * * * /usr/bin/python /var/www/html/manage.py clean_user
-# THIS FILE MUST USE LF end of line sequence or no good
