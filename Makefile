@@ -3,6 +3,9 @@ DOCKER_COMPOSE = docker compose --project-name ${NAME}
 VOLUME= postgresql media prometheus grafana
 VOLUME_DIR = ${HOME}/${NAME}
 
+GREEN := \033[32m
+RESET := \033[0m
+
 # all: env create-volumes
 # 	${DOCKER_COMPOSE} up --build -d
 
@@ -45,20 +48,12 @@ clean-volumes:
 	done
 
 submodule-back:
-	@echo "Resetting Data submodule..."
+	@echo "${GREEN}Resetting back submodule...${RESET}"
 	@bash scripts/submodule_back.sh
 
 submodule-front:
-	@echo "Checking if the front_transcendence submodule exists..."
-	@if [ -d "Frontend/front_transcendence/.git" ]; then \
-		echo "Submodule exists. Updating..."; \
-		cd Frontend/front_transcendence && git pull origin main && cd ../..; \
-	else \
-		echo "Submodule does not exist. Adding..."; \
-		cd Frontend && \
-		git submodule add git@github.com:LaTeam-Trancendence/front_transcendence.git && cd ..; \
-	fi
-	@echo "Process completed successfully!"
+	@echo "${GREEN}Resetting front submodule...${RESET}"
+	@bash scripts/submodule_front.sh
 
 
 submodules: submodule-back submodule-front
