@@ -106,6 +106,16 @@ services:
       - grafana_data:/var/lib/grafana  # Persistance des données
 
 
+  node_exporter:
+    image: prom/node-exporter:latest
+    container_name: node_exporter
+    ports:
+      - "9101:9100"
+    networks:
+      - transcendence
+
+
+
 volumes:
   postgres_data:  # Volume pour stocker les données PostgreSQL
     driver_opts:
