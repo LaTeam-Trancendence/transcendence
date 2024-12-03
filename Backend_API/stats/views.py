@@ -100,8 +100,6 @@ class FinalizeMatchView(APIView):
                 message="Statistiques tous les mqtchs ok",
                 status_code=200
             )
-<<<<<<< HEAD
-=======
 
 class ShowStat(APIView):
         
@@ -118,4 +116,3 @@ class ShowStat(APIView):
             "win_rate": player.win_rate,
         }
         return Response(stats)
->>>>>>> main

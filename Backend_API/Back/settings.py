@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-bbqjzahyzlim1vvp%6k%g0)gn%5nb0j8w$&if@s4@-%hy93*-s
 DEBUG = True
 
 ALLOWED_HOSTS = [
-	"transcendence-api-1",
-	"localhost",
+	# "docker-files-api-1",
+	# "localhost",
 ]
 
 PASSWORD_MIN_LENGTH = 8
@@ -68,11 +68,11 @@ INSTALLED_APPS = [
     'stats',
     'tables_core',
 	'friends',
-	'django_prometheus',
+	# 'django_prometheus',
 ]
 
 MIDDLEWARE = [
-	'django_prometheus.middleware.PrometheusBeforeMiddleware',
+	# 'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -81,7 +81,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-	'django_prometheus.middleware.PrometheusAfterMiddleware',
+	# 'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 #repertoire des fichiers media
@@ -149,7 +149,7 @@ DATABASES = {
         'NAME': os.environ.get("POSTGRES_DB", 'transcendbase'),
         'USER': os.environ.get("POSTGRES_USER", 'myuser'),
         'PASSWORD': os.environ.get("POSTGRES_PASSWORD", 'nomdp'),
-        'HOST': 'postgres',   #Le nom du service dans Docker
+        'HOST': 'localhost', #'postgres',   Le nom du service dans Docker
         'PORT': '5432',
     }
 }
@@ -176,9 +176,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 PROMETHEUS_LATENCY_BUCKETS = [0.001, 0.0015, 0.002, 0.0025, 0.005, 0.0075, 0.01, 0.015, 0.02, 0.025, 0.05, 0.1]
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 

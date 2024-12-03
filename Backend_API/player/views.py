@@ -7,20 +7,13 @@ from stats.serializers import PlayerSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-<<<<<<< HEAD
-=======
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
 from .serializers import PlayerImageUploadSerializer
->>>>>>> main
 
 # \\_________________________________________//
 
 
-<<<<<<< HEAD
-class statsPlayerView(APIView):
-    
-=======
 class PlayerCreateView(APIView):
     def post(self, request, *args, **kwargs):
         user = request.user
@@ -54,7 +47,6 @@ class statsPlayerView(APIView):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
       
->>>>>>> main
     # \\_______recupere les stats____________//
     
     def get(self, request, *args, **kwargs):
@@ -77,10 +69,7 @@ class statsPlayerView(APIView):
                     status_code=404)
                 
         else: 
-<<<<<<< HEAD
-=======
             #players = Player.objects.filter(status=True)
->>>>>>> main
             players = Player.objects.all()
             serializer = PlayerSerializer(players, many=True)
             return CustomResponse.success(
@@ -88,13 +77,8 @@ class statsPlayerView(APIView):
                 message="Statistiques tous les joueurs ok",
                 status_code=200
             )
-<<<<<<< HEAD
-        
-        # \\_______modifie les stats____________//
-=======
     
     # \\_______________modifie les stats____________//
->>>>>>> main
         
     def put(self, request, *args, **kwargs):
         
@@ -129,8 +113,6 @@ class statsPlayerView(APIView):
             message="Erreur lors de la mise à jour des statistiques.",
             status_code=400
         )
-<<<<<<< HEAD
-=======
 
 class UploadPlayerImageView(APIView):
     permission_classes = [IsAuthenticated]
@@ -145,4 +127,3 @@ class UploadPlayerImageView(APIView):
             return Response({"message": "Image mise à jour avec succès", "image_url": user.image.url}, status=200)
 
         return Response(serializer.errors, status=400)
->>>>>>> main

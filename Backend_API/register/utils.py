@@ -22,7 +22,4 @@ class CustomResponse:
             "errors": errors,
             "message": message
         }, status=status_code)
-<<<<<<< HEAD
-=======
 
->>>>>>> main

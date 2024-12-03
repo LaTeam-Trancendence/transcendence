@@ -1,10 +1,7 @@
 from rest_framework import serializers
 from tables_core.models import CustomUser, Player, Match
 from register.serializers import UserSerializer
-<<<<<<< HEAD
-=======
 from PIL import Image
->>>>>>> main
 
 
 # \\ _______________________________________________//
@@ -15,10 +12,6 @@ class PlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Player
-<<<<<<< HEAD
-        fields = ['id', 'user', 'language', 'win_pong', 'lose_pong',
-                  'win_tictactoe', 'lose_tictactoe']
-=======
         fields = ['id', 'user', 'friends', 'language', 'win_pong', 'lose_pong',
                   'win_tictactoe', 'lose_tictactoe']
    
@@ -56,4 +49,3 @@ class PlayerImageUploadSerializer(serializers.ModelSerializer):
 
         return value
     
->>>>>>> main
