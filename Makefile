@@ -17,7 +17,7 @@ all: create-volumes
 
 create-volumes:
 	@echo "Checking and creating volume directories if necessary..."
-	@for volume in ${VOLUMES}; do \
+	@for volume in ${VOLUME}; do \
 		if [ ! -d "${VOLUME_DIR}/$$volume" ]; then \
 			echo "Creating directory: ${VOLUME_DIR}/$$volume"; \
 			mkdir -p "${VOLUME_DIR}/$$volume"; \
@@ -38,7 +38,7 @@ fclean: clean
 clean-volumes:
 	@echo "Removing Docker volumes and associated directories..."
 	@docker volume rm $$(docker volume ls -q --filter name=${NAME}) || true
-	@for volume in ${VOLUMES}; do \
+	@for volume in ${VOLUME}; do \
 		if [ -d "${VOLUME_DIR}/$$volume" ]; then \
 			echo "Removing directory: ${VOLUME_DIR}/$$volume"; \
 			rm -rf "${VOLUME_DIR}/$$volume"; \
