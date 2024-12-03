@@ -3,7 +3,7 @@
 # Appliquer les migrations Django
 echo "Applying database migrations..."
 python manage.py migrate --noinput
-# python manage.py loaddata data_final
+python manage.py loaddata data_final
 
 # Lancer Gunicorn pour servir l'application Django
 echo "Starting Gunicorn server..."
