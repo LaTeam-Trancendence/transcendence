@@ -12,5 +12,9 @@ class MatchSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Match
+<<<<<<< HEAD
         fields = ['id', 'user',' user_score', 'adv', 'adv_score', 'result',
+=======
+        fields = ['id', 'user', 'adv', 'user_score', 'adv_score', 'result',
+>>>>>>> main
                   'date', 'duration']

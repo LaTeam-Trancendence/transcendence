@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-bbqjzahyzlim1vvp%6k%g0)gn%5nb0j8w$&if@s4@-%hy93*-s
 DEBUG = True
 
 ALLOWED_HOSTS = [
-	"docker-files-api-1",
+	"transcendence-api-1",
 	"localhost",
 ]
 
@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'register',
     'stats',
     'tables_core',
+	'friends',
 	'django_prometheus',
 ]
 
@@ -83,17 +84,38 @@ MIDDLEWARE = [
 	'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
+#repertoire des fichiers media
+MEDIA_URL = '/media/'
+#chemin absolue pour stocke les fichiers telecharge
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://localhost:5173",
+    "http://localhost:8080"
 ]
 
 CORS_ALLOW_HEADERS = [
-    'content-type',  # Autoriser les en-têtes personnalisés
+    'content-type',
+    'x-csrftoken',
     'authorization',
+    'x-csrftoken',
 ]
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:5173",  # Ajouter votre frontend ici
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",  # Ajoutez l'origine de votre frontend
+]
+
+CSRF_COOKIE_NAME = 'csrftoken'
+CORS_ALLOW_CREDENTIALS = True  # Autoriser les cookies pour les requêtes CORS
+
 
 ROOT_URLCONF = 'Back.urls'
 
@@ -113,6 +135,10 @@ TEMPLATES = [
     },
 ]
 
+SESSION_COOKIE_HTTPONLY = True  # Empêche JavaScript d'accéder au cookie
+
+SESSION_COOKIE_SECURE = True   # Active uniquement en HTTPS
+
 WSGI_APPLICATION = 'Back.wsgi.application'
 
 AUTH_USER_MODEL = 'tables_core.CustomUser'
@@ -120,10 +146,10 @@ AUTH_USER_MODEL = 'tables_core.CustomUser'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("POSTGRES_DB"),
-        'USER': os.environ.get("POSTGRES_USER"),
-        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-        'HOST': 'postgres',  # Le nom du service dans Docker
+        'NAME': os.environ.get("POSTGRES_DB", 'transcendbase'),
+        'USER': os.environ.get("POSTGRES_USER", 'myuser'),
+        'PASSWORD': os.environ.get("POSTGRES_PASSWORD", 'nomdp'),
+        'HOST': 'postgres',   #Le nom du service dans Docker
         'PORT': '5432',
     }
 }
@@ -146,11 +172,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
     {
-        'NAME': 'back.path.to.SpecialCharacterPasswordValidator',
+        'NAME': 'register.validators.SpecialCharacterPasswordValidator',
     },
 ]
 
 PROMETHEUS_LATENCY_BUCKETS = [0.001, 0.0015, 0.002, 0.0025, 0.005, 0.0075, 0.01, 0.015, 0.02, 0.025, 0.05, 0.1]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
