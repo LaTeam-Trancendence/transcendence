@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-bbqjzahyzlim1vvp%6k%g0)gn%5nb0j8w$&if@s4@-%hy93*-s
 DEBUG = True
 
 ALLOWED_HOSTS = [
-	"docker-files-api-1",
+	"transcendence-api-1",
 	"localhost",
 ]
 

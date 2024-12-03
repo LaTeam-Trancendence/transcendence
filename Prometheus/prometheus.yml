@@ -6,4 +6,4 @@ scrape_configs:
   - job_name: prometheus
     metrics_path: '/prometheus-xyzabc/metrics'
     static_configs:
-      - targets: ["docker-files-api-1:8000"]
+      - targets: ["transcendence-api-1:8000"]
