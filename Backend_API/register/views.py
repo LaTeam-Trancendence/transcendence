@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from register.utils import CustomResponse
 from register.serializers import UserSerializer , LoginSerializer
+from django.views.decorators.csrf import csrf_exempt
 from Back import settings
 import logging
 
@@ -14,14 +15,14 @@ import logging
 logger = logging.getLogger(__name__)
 
 class RegisterUserView(APIView):
-    permission_classes = [AllowAny] 
-    
-    # def get(self, request, *args, **kwargs):    #test request Get
-    #     return CustomResponse.success({
-    #         "status": "success",
-    #         "message": "Veuillez envoyer une requête POST pour vous inscrire.",
-    #     }, status_code=200)
-    
+    permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):    #test request Get
+        return CustomResponse.success({
+            "status": "success",
+            "message": "Veuillez envoyer une requête POST pour vous inscrire.",
+        }, status_code=200)
+
     def post(self, request, *args, **kwargs):
         data=request.data
         serializer = UserSerializer(data=request.data)
@@ -36,11 +37,22 @@ class RegisterUserView(APIView):
             status_code=400
         ))
 
+# @csrf_exempt
+# class HealthCheckView(APIView):
+#     permission_classes = [AllowAny]
+
+#     def get(self, request):
+#         return (CustomResponse.success(
+#             {"status": "ok"},
+#             status_code=200
+#         ))
+
 # \\ ___________________login___________________________________//
+
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
-      
+
     def post(self, request, *args, **kwargs):
 
         serializer = LoginSerializer(data=request.data)
@@ -67,18 +79,36 @@ class LoginView(APIView):
                 status_code=401
         ))
 
+
+ # \\___________________logout________________________//
+
+
+class LogoutView(APIView):
+
+    def post(self, request):
+
+        logout(request)
+        return (CustomResponse.success(
+            {"message": "Déconnexion réussie."},
+            status=200
+        ))
+
+
+ # \\_________________Anonim________________________//
+
+
 def anoCustomUser(user):
-    
+
     user.username = f"user_{user.id}"
-    user.image = None 
+    user.image = None
     user.save()
-    
+
 class DeleteAccountView(APIView):
-    
+
     def post(self, request, *args, **kwargs):
 
         user = request.user
-        
+
         if user:
             anoCustomUser(user)
             return(CustomResponse.succes(
@@ -90,17 +120,15 @@ class DeleteAccountView(APIView):
                 {"errors": anoCustomUser.errors},
                 status_code=400
         ))
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
 # class DeleteAccountView(APIView):
-    
+
 #     def delete(self, request, *args, **kwargs):
-        
+
 #         user = request.user
 #         if user.is_authenticated:
 #             anonymize_and_delete_user(user)

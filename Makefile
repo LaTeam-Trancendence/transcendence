@@ -1,4 +1,4 @@
-NAME=docker-files
+NAME=transcendence
 DOCKER_COMPOSE = docker compose --project-name ${NAME}
 VOLUME= postgresql media prometheus grafana
 VOLUME_DIR = ${HOME}/${NAME}
