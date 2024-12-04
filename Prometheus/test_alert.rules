@@ -1,0 +1,10 @@
+groups:
+  - name: test_alerts
+    rules:
+      - alert: TestAlert
+        expr: process_cpu_seconds_total > 0 # Cette expression alterne toutes les 15 secondes
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "C'est une alerte de test"

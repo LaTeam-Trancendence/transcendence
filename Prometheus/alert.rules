@@ -1,0 +1,46 @@
+groups:
+  - name: node_alerts
+    rules:
+      - alert: HighConnectionAttempts
+        expr: increase(node_http_requests_total{status=~"5.."}[5m]) > 10
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Trop de tentatives de connexion échouées"
+
+      - alert: HighCpuUsage
+        expr: avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) < 0.2
+        for: 3m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Le CPU est à plus de 80% pendant plus de 3 minutes"
+
+      - alert: NodeExporterDown
+        expr: up{job="node_exporter"} == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Node Exporter est hors ligne"
+
+  - name: django_alerts
+    rules:
+      - alert: HighHttp5xxErrors
+        expr: increase(django_http_requests_total{status=~"5.."}[5m]) > 5
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Trop d'erreurs serveur HTTP 5xx"
+          description: "Le nombre d'erreurs serveur (5xx) a dépassé le seuil de 5 dans les 5 dernières minutes."
+
+      - alert: HighRequestLatency
+        expr: histogram_quantile(0.95, sum(rate(django_http_requests_latency_seconds_bucket[5m])) by (le)) > 1.0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Latence des requêtes HTTP trop élevée"
+          description: "La latence des requêtes HTTP a dépassé 1 seconde pour 95% des requêtes dans les 5 dernières minutes."

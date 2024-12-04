@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
+from PIL import Image, UnidentifiedImageError
+import os
 
 # //__________________________________________________\\
 # dans AbstractUser les champs username et password sont deja crees
@@ -12,8 +14,22 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 # Reste a gerer les amis en intergrant une liste
 
 class CustomUser(AbstractUser):
+<<<<<<< HEAD
     image = models.ImageField(upload_to='player_picture/', blank=True, null=True)
+=======
+    image = models.ImageField(upload_to='media/player_picture/', blank=True, null=True)
+>>>>>>> main
     
+    def save(self, *args, **kwargs):
+        # Redimensionner l'image avant de la sauvegarder
+        super().save(*args, **kwargs)  # Sauvegarde initiale pour accéder au fichier
+        if self.image:
+            img = Image.open(self.image.path)  # Chemin local du fichier
+            if img.height > 400 or img.width > 400:
+                output_size = (400, 400)
+                img = img.resize(output_size, Image.Resampling.LANCZOS) #constante pour une qualite d image redimentionner elevee
+                img.save(self.image.path)
+                
     # groups = models.ManyToManyField(
     #     Group,
     #     related_name="custom_user_groups",  
@@ -37,10 +53,14 @@ class Player(models.Model):
                 related_name="player") 
     
     friends = models.ManyToManyField("self", symmetrical=True, blank=True)
+<<<<<<< HEAD
     
     language = models.CharField(max_length=2, default="FR")
+=======
+>>>>>>> main
     
-    #friends
+    language = models.CharField(max_length=2, default="FR")
+
     status = models.BooleanField(default=False)
     
     win_pong = models.IntegerField(default=0)
@@ -48,7 +68,7 @@ class Player(models.Model):
     
     win_tictactoe = models.IntegerField(default=0)
     lose_tictactoe = models.IntegerField(default=0)
-    
+      
     def __str__(self):
         return self.user.username
     
@@ -82,6 +102,17 @@ class Match(models.Model):
     date = models.DateTimeField(null=True)
     start_match = models.DateTimeField(null=True)
     end_match = models.DateTimeField(null=True)
+    duration = models.DurationField(null=True)
+    
+    # def __str__(self):
+    #     return f"Match {self.id} - {self.user} vs {self.adv}"
+    
+    
+    
+    def save(self, *args, **kwargs):
+        if self.start_match and self.end_match:
+            self.duration = self.end_match - self.start_match 
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return f"Match {self.id} - {self.user} vs {self.adv}"

@@ -11,14 +11,11 @@ RUN apk add --no-cache \
     libpq-dev \
     gcc \
     bash \
-    dcron
+    dcron \
+	wget
 
-# Copier le fichier SQL dans l'image
-# COPY database_dump.sql /docker-entrypoint-initdb.d/dump.sql
 
 COPY . /app
-
-# COPY scripts/test.py /app/test.py
 
 # Définir le répertoire de travail
 WORKDIR /app

@@ -1,9 +1,23 @@
 global:
-  scrape_interval:     15s
+  scrape_interval: 15s
   evaluation_interval: 15s
 
 scrape_configs:
-  - job_name: prometheus
+  - job_name: 'prometheus'
     metrics_path: '/prometheus-xyzabc/metrics'
     static_configs:
-      - targets: ["docker-files-api-1:8000"]
+      - targets: ["transcendence-api-1:8000"]
+
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets: ['node_exporter:9100']
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - 'alertmanager:9093'
+
+rule_files:
+  - "/etc/prometheus/alert.rules"  # Chemin vers le fichier des règles d'alerte
+  - "/etc/prometheus/test_alert.rules"  # Chemin vers le fichier des alertes

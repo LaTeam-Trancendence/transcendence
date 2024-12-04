@@ -31,5 +31,10 @@ urlpatterns = [
     path('prometheus-xyzabc/', include('django_prometheus.urls'))
 ]
 
+<<<<<<< HEAD
+=======
+#sa gere les urls pattern MEDIA et gere les requetes
+
+>>>>>>> main
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
