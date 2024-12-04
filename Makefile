@@ -1,6 +1,7 @@
 NAME=transcendence
 DOCKER_COMPOSE = docker compose --project-name ${NAME}
-VOLUME= postgresql media prometheus grafana
+VOLUME= postgresql media prometheus grafana \
+		elasticsearch logstash/data logstash/logs filebeat logs
 VOLUME_DIR = ${HOME}/${NAME}
 
 GREEN := \033[32m
@@ -96,4 +97,4 @@ help:
 	@echo ""
 
 .PHONY: all create-volumes clean fclean clean-volumes submodule-back \
-	submodule-front submodules help re
+	submodule-front submodules re init help

@@ -16,19 +16,11 @@ logger = logging.getLogger(__name__)
 class RegisterUserView(APIView):
     permission_classes = [AllowAny] 
     
-<<<<<<< HEAD
-    # def get(self, request, *args, **kwargs):    #test request Get
-    #     return CustomResponse.success({
-    #         "status": "success",
-    #         "message": "Veuillez envoyer une requête POST pour vous inscrire.",
-    #     }, status_code=200)
-=======
     def get(self, request, *args, **kwargs):    #test request Get
          return CustomResponse.success({
             "status": "success",
             "message": "Veuillez envoyer une requête POST pour vous inscrire.",
         }, status_code=200)
->>>>>>> main
     
     def post(self, request, *args, **kwargs):
         data=request.data
@@ -61,13 +53,8 @@ class LoginView(APIView):
 
             if user is not None:
                 login(request, user)
-<<<<<<< HEAD
-                return(CustomResponse.succes(
-                    {"CustomUser": "create"},
-=======
                 return(CustomResponse.success(
                     {"CustomUser": "success login"},
->>>>>>> main
                     status_code=200
             ))
             else:

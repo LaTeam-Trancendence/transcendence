@@ -1,0 +1,12 @@
+# kibana.yml
+
+# Autorise Kibana à être accessible de l'extérieur du conteneur (utilise l'adresse 0.0.0.0)
+server.host: "0.0.0.0"
+
+# Configure la connexion à Elasticsearch
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+
+# Désactive les authentifications SSL (seulement pour développement local, non recommandé pour la production)
+server.ssl.enabled: false
+
+# Configuration des plugins et autres options peuvent être ajoutées ici

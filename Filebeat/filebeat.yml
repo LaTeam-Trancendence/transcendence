@@ -1,0 +1,27 @@
+# Configuration des entrées pour Filebeat
+filebeat.inputs:
+  - type: log
+    # Chemin vers les fichiers de log à envoyer
+    paths:
+      - /var/log/frontend/*.log
+      - /var/log/nginx/*.log
+      - /var/log/postgres/*.log
+      - /var/log/api/*.log
+    fields:
+      project: transcendence
+
+# Configuration de la sortie vers Logstash
+output.logstash:
+  # Assurez-vous que le port 5044 est exposé dans Logstash et que Logstash est accessible via le réseau
+  hosts: ["logstash:5044"]  # Utilise le nom du service logstash dans Docker (ou localhost si Filebeat tourne localement)
+
+# Configuration pour améliorer la performance de Filebeat
+logging:
+  level: info  # Niveau des logs de Filebeat
+  to_files: true
+  files:
+    path: /var/log/filebeat
+    name: filebeat
+    keepfiles: 7  # Nombre de fichiers à conserver avant de les supprimer
+    permissions: 0644
+

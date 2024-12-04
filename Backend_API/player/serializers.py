@@ -21,8 +21,6 @@ class PlayerSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"user": "Un utilisateur doit être spécifié."})
         return super().create(validated_data)
     
-<<<<<<< HEAD
-=======
     #protection contre les injection sql
     # Vérifie le type MIME permet d'identifier la nature et le format de docs
     # Vérifie la taille du fichier (max 5MB)
@@ -51,4 +49,3 @@ class PlayerImageUploadSerializer(serializers.ModelSerializer):
 
         return value
     
->>>>>>> main

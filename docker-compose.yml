@@ -16,6 +16,9 @@ services:
       interval: 2s
       retries: 10
       start_period: 5s
+    volumes:
+      - logs:/var/log/frontend  # Persistance des logs
+
 
   nginx:
     build:
@@ -36,6 +39,8 @@ services:
         condition: service_healthy
       api:  # Assure-toi que l'API est démarrée avant Nginx
         condition: service_healthy
+    volumes:
+      - logs:/var/log/nginx  # Persistance des logs
 
 
   postgres:
@@ -50,6 +55,7 @@ services:
       - .env
     volumes:
       - postgres_data:/var/lib/postgresql  # Persistance des données
+      - logs:/var/logs/postgresql  # Persistance des logs
     healthcheck:
       test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-p", "5432", "-t", "2"]
       interval: 2s
@@ -71,6 +77,7 @@ services:
         required: true
     volumes:
       - media_data:/app/media  # Persistance des fichiers média
+      - logs:/var/log/api  # Persistance des logs
     depends_on:
       postgres:  # Assure-toi que PostgreSQL est démarré avant l'API
         condition: service_healthy
@@ -97,9 +104,8 @@ services:
       - "3000:3000"  # Expose Grafana sur le port 3000
     networks:
       - transcendence
-    env_file:
-      - path: .env  # Charge les variables d'environnement
-        required: true
+    environment:
+      - GF_INSTALL_PLUGINGS=grafana-clock-panel,grafana-simple-json-datasource
     depends_on:
       - prometheus  # Assure-toi que Prometheus est démarré avant Grafana
     volumes:
@@ -114,6 +120,66 @@ services:
     networks:
       - transcendence
 
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.16.1
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false # Sécurité activée
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD} # Mot de passe pour l'accès
+    ports:
+      - "9200:9200" # Port pour l'accès HTTP
+    volumes:
+      - es_data:/usr/share/elasticsearch/data # Données persistantes
+    networks:
+      - transcendence
+
+
+  logstash:
+    build:
+      context: ./Logstash  # Répertoire où se trouve ton Dockerfile pour Logstash
+      dockerfile: Dockerfile  # Nom du Dockerfile
+    environment:
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+    volumes:
+      - ./Logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - "5044:5044" # Port pour la collecte de logs
+    networks:
+      - transcendence
+    depends_on:
+      - elasticsearch
+
+
+  filebeat:
+    build:
+      context: ./Filebeat  # Répertoire où se trouve ton Dockerfile pour Filebeat
+      dockerfile: Dockerfile  # Nom du Dockerfile
+    volumes:
+      - ./Filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - logs:/var/log
+    environment:
+      - "ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST}"
+    networks:
+      - transcendence
+    depends_on:
+      - logstash
+      - elasticsearch
+
+
+  kibana:
+    build:
+      context: ./Kibana  # Répertoire où se trouve ton Dockerfile pour Kibana
+      dockerfile: Dockerfile  # Nom du Dockerfile
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    networks:
+      - transcendence
+    depends_on:
+      - elasticsearch
 
 
 volumes:
@@ -140,6 +206,37 @@ volumes:
       type: none
       device: ${HOME}/transcendence/grafana
       o: bind
+
+  es_data:  # Volume pour stocker les données Elasticsearch
+    driver_opts:
+      type: none
+      device: ${HOME}/transcendence/elasticsearch
+      o: bind
+
+  logstash_data:  # Volume pour les données temporaires ou persistantes de Logstash
+    driver_opts:
+      type: none
+      device: ${HOME}/transcendence/logstash/data
+      o: bind
+
+  logstash_logs:  # Volume pour les logs internes de Logstash
+    driver_opts:
+      type: none
+      device: ${HOME}/transcendence/logstash/logs
+      o: bind
+
+  filebeat_data:  # Volume pour l'état interne de Filebeat
+    driver_opts:
+      type: none
+      device: ${HOME}/transcendence/filebeat
+      o: bind
+
+  logs:  # Volume partagé pour les logs des services
+    driver_opts:
+      type: none
+      device: ${HOME}/transcendence/logs
+      o: bind
+
 
 networks:
   transcendence:  # Crée un réseau dédié pour tous les services

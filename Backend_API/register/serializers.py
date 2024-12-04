@@ -28,11 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
         user = CustomUser.objects.create_user(
                                 username=validated_data['username'],
                                 password=validated_data['password'],
-<<<<<<< HEAD
-                                # image=validated_data.get('image', None),
-=======
                                 image=validated_data.get('image', None),
->>>>>>> main
         )
         # player = Player.objects.create_user()
         return user

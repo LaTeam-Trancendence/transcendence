@@ -9,10 +9,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
-<<<<<<< HEAD
-=======
 from .serializers import PlayerImageUploadSerializer
->>>>>>> main
 
 # \\_________________________________________//
 
@@ -40,26 +37,6 @@ class PlayerCreateView(APIView):
         serializer = PlayerSerializer(players, many=True)
         return Response(serializer.data)
 
-<<<<<<< HEAD
-# class PlayerCreateView(APIView):
-#     def post(self, request, *args, **kwargs):
-#         ser = request.data.get("user")
-#         if not CustomUser:
-#             return Response(
-#                 {"Un utilisateur doit être associé au joueur."},
-#                 status=400)
-#         serializer = PlayerSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=201)
-#         return Response(serializer.errors, status=400)
-#     def get(self, request):
-#         players = Player.objects.all()  # Récupère tous les joueurs
-#         print(players)        
-#         serializer = PlayerSerializer(players, many=True)
-#         return Response(serializer.data)
-=======
->>>>>>> main
 
 class statsPlayerView(APIView):
     
@@ -101,11 +78,7 @@ class statsPlayerView(APIView):
                 status_code=200
             )
     
-<<<<<<< HEAD
-        # \\_______modifie les stats____________//
-=======
     # \\_______________modifie les stats____________//
->>>>>>> main
         
     def put(self, request, *args, **kwargs):
         
@@ -141,23 +114,11 @@ class statsPlayerView(APIView):
             status_code=400
         )
 
-<<<<<<< HEAD
-class PlayerUpdateView(APIView):
-=======
 class UploadPlayerImageView(APIView):
->>>>>>> main
     permission_classes = [IsAuthenticated]
     parser_classes = (MultiPartParser, FormParser)  # Pour accepter les fichiers
 
     def post(self, request):
-<<<<<<< HEAD
-        player = Player.objects.get(user=request.user)
-        serializer = PlayerSerializer(player, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=200)
-        return Response(serializer.errors, status=400)
-=======
         user = request.user  # Récupère l'utilisateur connecté
         serializer = PlayerImageUploadSerializer(user, data=request.data, partial=True)
 
@@ -166,4 +127,3 @@ class UploadPlayerImageView(APIView):
             return Response({"message": "Image mise à jour avec succès", "image_url": user.image.url}, status=200)
 
         return Response(serializer.errors, status=400)
->>>>>>> main
