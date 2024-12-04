@@ -60,11 +60,6 @@ fi
 echo -e "${BLUE}Staging cleanup...${RESET}"
 git add .git/config || true
 
-# Step 7: Remove the unwanted Frontend directory created in the wrong location
-if [ -d "Frontend/Frontend" ]; then
-    echo -e "${RED}Cleaning unwanted Frontend/Frontend directory...${RESET}"
-    rm -rf "Frontend/Frontend"
-fi
 
 # Step 8: Add submodule again
 echo -e "${BLUE}Adding submodule: $SUBMODULE_NAME${RESET}"

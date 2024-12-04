@@ -6,9 +6,6 @@ VOLUME_DIR = ${HOME}/${NAME}
 GREEN := \033[32m
 RESET := \033[0m
 
-# all: env create-volumes
-# 	${DOCKER_COMPOSE} up --build -d
-
 all: create-volumes
 	${DOCKER_COMPOSE} up -d
 
@@ -60,7 +57,15 @@ submodules: submodule-back submodule-front
 
 re: clean all
 
+	# ajouter commande env
+init: submodules
+	@echo "${GREEN}File .env initialized successfully.${RESET}"
+	@echo "${GREEN}Submodules initialized successfully.${RESET}"
+
 help:
+	@echo ""
+	@echo "init:"
+	@echo "    Creates .env file and init submodules."
 	@echo ""
 	@echo "all:"
 	@echo "    Builds the project, creates volumes, and starts containers."
