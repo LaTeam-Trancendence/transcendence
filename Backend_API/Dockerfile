@@ -29,14 +29,17 @@ RUN python3 -m pip install --break-system-packages --no-cache-dir --upgrade pip 
     python3 -m pip install --break-system-packages --no-cache-dir gunicorn && \
     python3 -m pip install --break-system-packages --no-cache-dir -r requirements.txt
 
+# Configurer les tâches cron
 COPY ./scripts/root /etc/crontabs/root
-# Give execution rights on the cron job
 RUN chmod 0755 /etc/crontabs/root
-# Create the log file
 RUN touch /var/log/cron.log
+
+# Créer le répertoire des logs API
+RUN mkdir -p /var/log/api && \
+    chmod -R 755 /var/log/api
 
 # Exposer le port 8000
 EXPOSE 8000
 
-# Lancer le cron avec le serveur
-CMD ["sh", "-c", "/app/scripts/cron.sh & /app/scripts/start.sh"]
+# Lancer le cron avec le serveur et rediriger les logs
+CMD ["sh", "-c", "/app/scripts/cron.sh >> /var/log/api/cron.log 2>&1 & /app/scripts/start.sh >> /var/log/api/api.log 2>&1"]

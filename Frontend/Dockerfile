@@ -1,15 +1,33 @@
-# build stage
-FROM node:lts-alpine as build-stage
+# Build stage
+FROM node:18-alpine as build-stage
+
+# Installer les dépendances nécessaires pour la construction
+RUN apk add --no-cache curl
+
 WORKDIR /app
 
-RUN apk add curl
 COPY front_transcendence/package.json ./
 RUN npm install
-COPY front_transcendence/ .
+
+COPY front_transcendence/ ./
 RUN npm run build
 
-# production stage
+
+
+# Production stage
 FROM nginx:stable-alpine as production-stage
+
+# Copier les fichiers construits dans le répertoire public de Nginx
 COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+# Configurer les logs
+RUN mkdir -p /var/log/frontend && \
+    chmod -R 755 /var/log/frontend && \
+    ln -sf /dev/stdout /var/log/frontend/access.log && \
+    ln -sf /dev/stderr /var/log/frontend/error.log
+
+# Exposer le port 80
 EXPOSE 80
+
+# Commande pour démarrer Nginx
 CMD ["nginx", "-g", "daemon off;"]

@@ -5,10 +5,16 @@ filebeat.inputs:
     paths:
       - /var/log/frontend/*.log
       - /var/log/nginx/*.log
-      - /var/log/postgres/*.log
+      - /var/log/postgresql/*.log
       - /var/log/api/*.log
     fields:
       project: transcendence
+
+  - type: container
+    paths:
+      - /var/lib/docker/containers/*/*.log
+    processors:
+      - add_docker_metadata: ~
 
 # Configuration de la sortie vers Logstash
 output.logstash:

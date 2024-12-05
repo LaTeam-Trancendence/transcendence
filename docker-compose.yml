@@ -51,11 +51,15 @@ services:
       - "5432:5432"  # Expose PostgreSQL sur le port 5432
     networks:
       - transcendence
+    environment:
+      - POSTGRES_LOGGING_COLLECTOR=on
+      - POSTGRES_LOG_DIRECTORY=/var/log/postgres
+      - POSTGRES_LOG_FILENAME=postgresql.log
     env_file:
       - .env
     volumes:
       - postgres_data:/var/lib/postgresql  # Persistance des données
-      - logs:/var/logs/postgresql  # Persistance des logs
+      - logs:/var/log/postgresql  # Persistance des logs
     healthcheck:
       test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-p", "5432", "-t", "2"]
       interval: 2s
