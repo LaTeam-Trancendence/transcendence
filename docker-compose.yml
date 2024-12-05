@@ -90,6 +90,7 @@ services:
       interval: 1s
       retries: 10
 
+
   prometheus:
     build:
       context: ./Prometheus  # Répertoire où se trouve ton Dockerfile pour Prometheus
@@ -126,6 +127,7 @@ services:
 
 
   elasticsearch:
+    stop_grace_period: 1s
     image: docker.elastic.co/elasticsearch/elasticsearch:8.16.1
     container_name: elasticsearch
     environment:
@@ -141,6 +143,7 @@ services:
 
 
   logstash:
+    stop_grace_period: 1s
     build:
       context: ./Logstash  # Répertoire où se trouve ton Dockerfile pour Logstash
       dockerfile: Dockerfile  # Nom du Dockerfile

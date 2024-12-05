@@ -12,6 +12,7 @@ RUN chmod 644 filebeat.yml && \
     chown root:root filebeat.yml && \
 	chmod -R 755 /var/log && \
     chown -R root:root /var/log
+		# Ajouter filebeat a la fin du path ?
 
 # Spécifier le chemin du fichier personnalisé lors du démarrage
 ENTRYPOINT ["/usr/share/filebeat/filebeat", "-e", "-c", "/usr/share/filebeat/config/filebeat.yml"]

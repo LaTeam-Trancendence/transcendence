@@ -35,11 +35,11 @@ RUN chmod 0755 /etc/crontabs/root
 RUN touch /var/log/cron.log
 
 # Créer le répertoire des logs API
-RUN mkdir -p /var/log/api && \
+RUN mkdir -p /var/log/api/api && \
     chmod -R 755 /var/log/api
 
 # Exposer le port 8000
 EXPOSE 8000
 
 # Lancer le cron avec le serveur et rediriger les logs
-CMD ["sh", "-c", "/app/scripts/cron.sh >> /var/log/api/cron.log 2>&1 & /app/scripts/start.sh >> /var/log/api/api.log 2>&1"]
+CMD ["sh", "-c", "/app/scripts/cron.sh >> /var/log/api/api/cron.log 2>&1 & /app/scripts/start.sh >> /var/log/api/api/api.log 2>&1"]
