@@ -17,7 +17,7 @@ services:
       retries: 10
       start_period: 5s
     volumes:
-      - logs:/var/log/frontend  # Persistance des logs
+      - logs:/mnt/logs  # Persistance des logs
 
 
   nginx:
@@ -40,7 +40,7 @@ services:
       api:  # Assure-toi que l'API est démarrée avant Nginx
         condition: service_healthy
     volumes:
-      - logs:/var/log/nginx  # Persistance des logs
+      - logs:/mnt/logs  # Persistance des logs
 
 
   postgres:
@@ -53,13 +53,13 @@ services:
       - transcendence
     environment:
       - POSTGRES_LOGGING_COLLECTOR=on
-      - POSTGRES_LOG_DIRECTORY=/var/log/postgres
+      - POSTGRES_LOG_DIRECTORY=/mnt/logs/postgres
       - POSTGRES_LOG_FILENAME=postgresql.log
     env_file:
       - .env
     volumes:
       - postgres_data:/var/lib/postgresql  # Persistance des données
-      - logs:/var/log/postgresql  # Persistance des logs
+      - logs:/mnt/logs  # Persistance des logs
     healthcheck:
       test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-p", "5432", "-t", "2"]
       interval: 2s
@@ -81,7 +81,7 @@ services:
         required: true
     volumes:
       - media_data:/app/media  # Persistance des fichiers média
-      - logs:/var/log/api  # Persistance des logs
+      - logs:/mnt/logs  # Persistance des logs
     depends_on:
       postgres:  # Assure-toi que PostgreSQL est démarré avant l'API
         condition: service_healthy
@@ -165,7 +165,6 @@ services:
       dockerfile: Dockerfile  # Nom du Dockerfile
     volumes:
       - ./Filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - logs:/var/log
     environment:
       - "ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST}"
     networks:

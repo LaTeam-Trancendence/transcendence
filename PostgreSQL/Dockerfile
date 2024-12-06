@@ -10,8 +10,8 @@ COPY ./scripts/database_dump.sql /scripts/dump.sql
 # Rendre les scripts exécutables
 RUN chmod +x /docker-entrypoint-initdb.d/init_db.sh /entrypoint.sh
 
-# Rediriger les logs vers stdout/stderr
-RUN mkdir -p /var/log/postgresql/postgresql && \
-	chmod -R 755 /var/log/postgresql && \
-    ln -sf /dev/stdout /var/log/postgresql/postgresql/postgresql.log && \
-    ln -sf /dev/stderr /var/log/postgresql/postgresql/postgresql_error.log
+CMD [ "postgres", \
+	"-c", "config_file=/usr/share/postgresql/postgresql.conf.sample", \
+	"-c", "log_destination=stderr", \
+	"-c", "logging_collector=on", \
+	"-c", "log_directory=/mnt/logs/postgresql/" ]

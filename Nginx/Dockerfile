@@ -4,9 +4,8 @@ FROM nginx
 RUN apt update ; apt install -y bash
 
 # Créer les dossiers nécessaires pour les certificats et les logs
-RUN mkdir -p /etc/ssl/private /var/log/nginx/nginx && \
-    chmod 700 /etc/ssl/private && \
-    chmod 755 /var/log/nginx
+RUN mkdir -p /etc/ssl/private && \
+    chmod 700 /etc/ssl/private
 
 # Générer un certificat auto-signé
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
@@ -16,14 +15,10 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 RUN chown -R nginx:nginx /etc/ssl/private
 
 # Copier le fichier de configuration personnalisé
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# # Configurer les logs pour qu'ils soient redirigés vers stdout/stderr
-# RUN ln -sf /dev/stdout /var/log/nginx/nginx/access.log && \
-#     ln -sf /dev/stderr /var/log/nginx/nginx/error.log
+COPY nginx.conf /etc/nginx.conf
 
 # Exposer le port 8443 pour HTTPS
 EXPOSE 8443
 
 # Lancer Nginx en mode premier plan
-CMD [ "sh", "-c", "exec nginx -g 'daemon off;' >/var/log/nginx/nginx/access.log 2>/var/log/nginx/nginx/error.log" ]
+CMD [ "sh", "-c", "mkdir -p /mnt/logs/nginx ; exec nginx -g 'daemon off;' >/mnt/logs/nginx/access.log 2>/mnt/logs/nginx/error.log" ]

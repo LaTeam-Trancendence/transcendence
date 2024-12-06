@@ -8,4 +8,6 @@ if [ -f /docker-entrypoint-initdb.d/init_db.sh ]; then
 fi
 
 # Lancer le processus par défaut de PostgreSQL (démarrer PostgreSQL)
+mkdir -p /mnt/logs/postgresql
+chown -R postgres:postgres /mnt/logs/postgresql
 exec docker-entrypoint.sh "$@"

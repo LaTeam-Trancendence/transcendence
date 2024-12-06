@@ -21,14 +21,14 @@ FROM nginx:stable-alpine as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 # Configurer les logs
-RUN mkdir -p /var/log/frontend/frontend && \
-    chmod -R 755 /var/log/frontend
+RUN mkdir -p /mnt/logs/frontend && \
+    chmod -R 755 /mnt/logs/frontend
 	# && \
-    # ln -sf /dev/stdout /var/log/frontend/frontend/access.log && \
-    # ln -sf /dev/stderr /var/log/frontend/frontend/error.log
+    # ln -sf /dev/stdout /mnt/logs/frontend/access.log && \
+    # ln -sf /dev/stderr /mnt/logs/frontend/error.log
 
 # Exposer le port 80
 EXPOSE 80
 
 # Commande pour démarrer Nginx
-CMD [ "sh", "-c", "exec nginx -g 'daemon off;' >/var/log/frontend/frontend/access.log 2>/var/log/frontend/frontend/error.log" ]
+CMD [ "sh", "-c", "exec nginx -g 'daemon off;' >/mnt/logs/frontend/access.log 2>/mnt/logs/frontend/error.log" ]

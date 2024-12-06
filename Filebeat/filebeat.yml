@@ -3,10 +3,10 @@ filebeat.inputs:
   - type: log
     # Chemin vers les fichiers de log à envoyer
     paths:
-      - /var/log/frontend/*.log
-      - /var/log/nginx/*.log
-      - /var/log/postgresql/*.log
-      - /var/log/api/*.log
+      - /mnt/logs/frontend/*.log
+      - /mnt/logs/nginx/*.log
+      - /mnt/logs/postgresql/*.log
+      - /mnt/logs/api/*.log
     fields:
       project: transcendence
 
@@ -26,7 +26,7 @@ logging:
   level: info  # Niveau des logs de Filebeat
   to_files: true
   files:
-    path: /var/log/filebeat
+    path: /mnt/logs/filebeat
     name: filebeat
     keepfiles: 7  # Nombre de fichiers à conserver avant de les supprimer
     permissions: 0644
