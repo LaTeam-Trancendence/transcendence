@@ -10,10 +10,6 @@ COPY filebeat.yml .
 # Donner les permissions nécessaires au fichier
 RUN chmod 644 filebeat.yml && \
     chown root:root filebeat.yml
-	# && \
-	# chmod -R 755 /mnt/logs
-	# && \
-    # chown -R root:root /mnt/logs
-		# Ajouter filebeat a la fin du path ?
+
 # Spécifier le chemin du fichier personnalisé lors du démarrage
 ENTRYPOINT ["/usr/share/filebeat/filebeat", "-e", "-c", "/usr/share/filebeat/config/filebeat.yml"]

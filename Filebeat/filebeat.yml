@@ -10,12 +10,6 @@ filebeat.inputs:
     fields:
       project: transcendence
 
-  - type: container
-    paths:
-      - /var/lib/docker/containers/*/*.log
-    processors:
-      - add_docker_metadata: ~
-
 # Configuration de la sortie vers Logstash
 output.logstash:
   # Assurez-vous que le port 5044 est exposé dans Logstash et que Logstash est accessible via le réseau

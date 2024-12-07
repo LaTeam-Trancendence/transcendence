@@ -165,6 +165,7 @@ services:
       dockerfile: Dockerfile  # Nom du Dockerfile
     volumes:
       - ./Filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - logs:/mnt/logs  # Persistance des logs
     environment:
       - "ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST}"
     networks:
