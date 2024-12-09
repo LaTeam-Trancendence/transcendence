@@ -6,6 +6,8 @@
 	url = git@github.com:LaTeam-Trancendence/front_transcendence.git
 	path = Frontend/front_transcendence
 	url = git@github.com:LaTeam-Trancendence/front_transcendence.git
+	path = Frontend/front_transcendence
+	url = git@github.com:LaTeam-Trancendence/front_transcendence.git
 [submodule "Data"]
 	path = Data
 	url = git@github.com:LaTeam-Trancendence/Data.git

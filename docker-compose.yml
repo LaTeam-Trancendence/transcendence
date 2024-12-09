@@ -53,7 +53,7 @@ services:
       - transcendence
     environment:
       - POSTGRES_LOGGING_COLLECTOR=on
-      - POSTGRES_LOG_DIRECTORY=/mnt/logs/postgres
+      - POSTGRES_LOG_DIRECTORY=/mnt/logs/postgresql
       - POSTGRES_LOG_FILENAME=postgresql.log
     env_file:
       - .env
@@ -61,7 +61,7 @@ services:
       - postgres_data:/var/lib/postgresql  # Persistance des données
       - logs:/mnt/logs  # Persistance des logs
     healthcheck:
-      test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-p", "5432", "-t", "2"]
+      test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-p", "5432", "-t", "2", "-U", "postgres"]
       interval: 2s
       retries: 20
     restart: always #should be always

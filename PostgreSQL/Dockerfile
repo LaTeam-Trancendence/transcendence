@@ -10,8 +10,4 @@ COPY ./scripts/database_dump.sql /scripts/dump.sql
 # Rendre les scripts exécutables
 RUN chmod +x /docker-entrypoint-initdb.d/init_db.sh /entrypoint.sh
 
-CMD [ "postgres", \
-	"-c", "config_file=/usr/share/postgresql/postgresql.conf.sample", \
-	"-c", "log_destination=stderr", \
-	"-c", "logging_collector=on", \
-	"-c", "log_directory=/mnt/logs/postgresql/" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
