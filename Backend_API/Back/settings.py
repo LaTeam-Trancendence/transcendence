@@ -146,7 +146,7 @@ AUTH_USER_MODEL = 'tables_core.CustomUser'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("POSTGRES_DB", 'transcendbase'),
+        'NAME': os.environ.get("POSTGRES_DATABASE", 'transcendbase'),
         'USER': os.environ.get("POSTGRES_USER", 'myuser'),
         'PASSWORD': os.environ.get("POSTGRES_PASSWORD", 'nomdp'),
         'HOST': 'postgres', #'postgres',   Le nom du service dans Docker

@@ -10,4 +10,3 @@ COPY ./scripts/database_dump.sql /scripts/dump.sql
 # Rendre les scripts exécutables
 RUN chmod +x /docker-entrypoint-initdb.d/init_db.sh /entrypoint.sh
 
-ENTRYPOINT [ "/entrypoint.sh" ]

@@ -42,4 +42,4 @@ RUN chmod 0755 /etc/crontabs/root
 EXPOSE 8000
 
 # Lancer le cron avec le serveur et rediriger les logs
-CMD [ "sh", "-c", "/app/scripts/cron.sh >> /mnt/logs/api/cron.log 2>&1 & /app/scripts/start.sh >> /mnt/logs/api/api.log 2>&1" ]
+CMD [ "sh", "-c", "mkdir -p /mnt/logs/api ; /app/scripts/cron.sh >> /mnt/logs/api/cron.log 2>&1 & /app/scripts/start.sh >> /mnt/logs/api/api.log 2>&1" ]
