@@ -104,7 +104,9 @@ services:
 
 
   grafana:
-    image: grafana/grafana:latest  # Utilise l'image officielle de Grafana
+    build:
+      context: ./Grafana  # Répertoire où se trouve ton Dockerfile pour Grafana
+      dockerfile: Dockerfile  # Nom du Dockerfile
     ports:
       - "3000:3000"  # Expose Grafana sur le port 3000
     networks:
@@ -115,6 +117,9 @@ services:
       - prometheus  # Assure-toi que Prometheus est démarré avant Grafana
     volumes:
       - grafana_data:/var/lib/grafana  # Persistance des données
+      - ./Grafana/provisioning:/etc/grafana/provisioning
+      - ./Grafana/dashboard.json:/var/lib/grafana/dashboards/dashboard.json
+
 
 
   node_exporter:

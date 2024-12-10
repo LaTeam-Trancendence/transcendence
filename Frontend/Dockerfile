@@ -23,9 +23,6 @@ COPY --from=build-stage /app/dist /usr/share/nginx/html
 # Configurer les logs
 RUN mkdir -p /mnt/logs/frontend && \
     chmod -R 755 /mnt/logs/frontend
-	# && \
-    # ln -sf /dev/stdout /mnt/logs/frontend/access.log && \
-    # ln -sf /dev/stderr /mnt/logs/frontend/error.log
 
 # Exposer le port 80
 EXPOSE 80
