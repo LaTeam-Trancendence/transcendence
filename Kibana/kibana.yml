@@ -8,5 +8,3 @@ elasticsearch.hosts: ["http://elasticsearch:9200"]
 
 # Désactive les authentifications SSL (seulement pour développement local, non recommandé pour la production)
 server.ssl.enabled: false
-
-# Configuration des plugins et autres options peuvent être ajoutées ici

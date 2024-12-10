@@ -1,0 +1,2 @@
+{"attributes":{"allowHidden":false,"fieldAttrs":"{}","fieldFormatMap":"{}","fields":"[]","name":"logs2","runtimeFieldMap":"{}","sourceFilters":"[]","timeFieldName":"@timestamp","title":"logs*"},"coreMigrationVersion":"8.8.0","created_at":"2024-12-09T14:23:13.617Z","id":"ef234491-6769-44e2-adc6-1c5c1e78ac19","managed":false,"references":[],"type":"index-pattern","typeMigrationVersion":"8.0.0","updated_at":"2024-12-10T13:37:23.870Z","version":"WzcsNDBd"}
+{"excludedObjects":[],"excludedObjectsCount":0,"exportedCount":1,"missingRefCount":0,"missingReferences":[]}
