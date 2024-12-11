@@ -9,7 +9,7 @@ sed -i 's/^#logging_collector =.*$/logging_collector = on/g' /usr/share/postgres
 sed -i "s|^#log_directory =.*$|log_directory = '/mnt/logs/postgresql'|g" /usr/share/postgresql/postgresql.conf.sample
 
 # Lancer le processus par défaut de PostgreSQL (démarrer PostgreSQL)
-su -c 'initdb -D /var/lib/postgresql/data' postgres
+su -c 'initdb -D /var/lib/postgresql/data --auth=trust' postgres
 su -c '/docker-entrypoint-initdb.d/init_db.sh' postgres
 # su -c 'docker-entrypoint.sh' postgres
 

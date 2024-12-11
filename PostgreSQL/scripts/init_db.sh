@@ -10,11 +10,12 @@ then
 
   # Vérifier que la base est accessible
   echo "Waiting for the database to be ready..."
-  until psql -U "$POSTGRES_USER" -c '\q'; do
+  until psql -c '\q'; do
     >&2 echo "Postgres is unavailable - sleeping"
     sleep 2
   done
 
-  psql -U "$POSTGRES_USER" -f /scripts/dump.sql
+  psql -f /scripts/dump.sql
   pg_ctl stop
+  echo 'host    all             all             0.0.0.0/0            md5' >> /var/lib/postgresql/data/pg_hba.conf
 fi
