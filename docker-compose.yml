@@ -86,7 +86,7 @@ services:
       postgres:  # Assure-toi que PostgreSQL est démarré avant l'API
         condition: service_healthy
     healthcheck:
-      test: "wget -o/dev/null -q http://localhost:8000/api/register/"
+      test: "wget -o/dev/null -q http://localhost:8000/api/register/ ; test $? = 8 "
       interval: 1s
       retries: 10
 
