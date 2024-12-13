@@ -148,7 +148,6 @@ services:
 
 
   logstash:
-    stop_grace_period: 1s
     build:
       context: ./Logstash  # Répertoire où se trouve ton Dockerfile pour Logstash
       dockerfile: Dockerfile  # Nom du Dockerfile
@@ -181,6 +180,7 @@ services:
 
 
   kibana:
+    stop_grace_period: 15s
     build:
       context: ./Kibana  # Répertoire où se trouve ton Dockerfile pour Kibana
       dockerfile: Dockerfile  # Nom du Dockerfile
