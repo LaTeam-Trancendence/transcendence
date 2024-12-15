@@ -139,6 +139,7 @@ services:
       - discovery.type=single-node
       - xpack.security.enabled=false # Sécurité activée
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD} # Mot de passe pour l'accès
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g # Configuration de la mémoire
     ports:
       - "9200:9200" # Port pour l'accès HTTP
     volumes:
@@ -204,7 +205,7 @@ volumes:
   media_data:  # Volume pour stocker les fichiers média
     driver_opts:
       type: none
-      device: ${HOME}/transcendence/media
+      device: ${HOME}/transcendence/api_media
       o: bind
 
   prometheus_data:  # Volume pour stocker les données Prometheus

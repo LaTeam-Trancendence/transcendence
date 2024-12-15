@@ -1,8 +1,9 @@
 NAME=transcendence
 DOCKER_COMPOSE = docker compose --project-name ${NAME}
-VOLUME= postgresql media prometheus grafana \
+VOLUME= postgresql api_media prometheus grafana \
 		elasticsearch logstash/data logstash/logs filebeat logs
 VOLUME_DIR = ${HOME}/${NAME}
+SHELL := /bin/bash
 
 GREEN := \033[32m
 RESET := \033[0m
@@ -13,16 +14,22 @@ all: create-volumes
 # env:
 # 	./scripts/create_env.sh
 
+SHELL := /bin/bash
+
 create-volumes:
 	@echo "Checking and creating volume directories if necessary..."
-	@for volume in ${VOLUME}; do \
-		if [ ! -d "${VOLUME_DIR}/$$volume" ]; then \
-			echo "Creating directory: ${VOLUME_DIR}/$$volume"; \
-			mkdir -p "${VOLUME_DIR}/$$volume"; \
-		else \
-			echo "Directory already exists: ${VOLUME_DIR}/$$volume"; \
-		fi \
+	@if [ -d "$(VOLUME_DIR)/api_media" ]; then \
+	    rm -rf "$(VOLUME_DIR)/api_media"; \
+	fi
+	@for volume in $(VOLUME); do \
+	    if [ ! -d "$(VOLUME_DIR)/$$volume" ]; then \
+	        echo "Creating directory: $(VOLUME_DIR)/$$volume"; \
+	        mkdir -p "$(VOLUME_DIR)/$$volume"; \
+	    else \
+	        echo "Directory already exists: $(VOLUME_DIR)/$$volume"; \
+	    fi \
 	done
+
 
 clean:
 	@echo "Stopping and removing containers..."
