@@ -29,10 +29,6 @@ RUN python3 -m pip install --break-system-packages --no-cache-dir --upgrade pip 
     python3 -m pip install --break-system-packages --no-cache-dir gunicorn && \
     python3 -m pip install --break-system-packages --no-cache-dir -r requirements.txt
 
-# # Créer le répertoire des logs API
-# RUN mkdir -p /mnt/logs/api && \
-# 	chmod -R 755 /mnt/logs/api
-
 # Configurer les tâches cron
 COPY ./scripts/root /etc/crontabs/root
 RUN chmod 0755 /etc/crontabs/root
