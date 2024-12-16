@@ -1,5 +1,5 @@
 
 # min	hour	day		month	weekday	command
-* * * * * /usr/local/bin/python3 /app/manage.py clean_user
+# * * * * * /usr/local/bin/python3 /app/manage.py clean_user
 * * * * * /bin/touch /etc/test
-# 0 0 1 1 * /usr/local/bin/python3 /app/manage.py clean_user
+0 0 1 1 * /usr/local/bin/python3 /app/manage.py clean_user
