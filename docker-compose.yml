@@ -7,8 +7,6 @@ services:
     env_file:
       - path: .env  # Charge les variables d'environnement
         required: true
-    ports:
-      - "8080:80"  # Expose le frontend sur le port 8080
     networks:
       - transcendence
     healthcheck:
@@ -39,6 +37,10 @@ services:
         condition: service_healthy
       api:  # Assure-toi que l'API est démarrée avant Nginx
         condition: service_healthy
+      kibana:
+        condition: service_started
+      grafana:  # Assure-toi que le frontend est démarré avant Nginx
+        condition: service_started
     volumes:
       - logs:/mnt/logs  # Persistance des logs
 
@@ -47,8 +49,6 @@ services:
     build:
       context: ./PostgreSQL  # Répertoire où se trouve ton Dockerfile pour PostgreSQL
       dockerfile: Dockerfile  # Nom du Dockerfile
-    ports:
-      - "5432:5432"  # Expose PostgreSQL sur le port 5432
     networks:
       - transcendence
     environment:
@@ -71,8 +71,6 @@ services:
     build:
       context: ./Backend_API  # Répertoire où se trouve ton Dockerfile pour l'API
       dockerfile: Dockerfile  # Nom du Dockerfile
-    ports:
-      - "8000:8000"  # Expose l'API sur le port 8000
     networks:
       - transcendence
     restart: always #should be always
@@ -95,8 +93,6 @@ services:
     build:
       context: ./Prometheus  # Répertoire où se trouve ton Dockerfile pour Prometheus
       dockerfile: Dockerfile  # Nom du Dockerfile
-    ports:
-      - "9090:9090"  # Expose Prometheus sur le port 9090
     networks:
       - transcendence
     volumes:
@@ -107,8 +103,6 @@ services:
     build:
       context: ./Grafana  # Répertoire où se trouve ton Dockerfile pour Grafana
       dockerfile: Dockerfile  # Nom du Dockerfile
-    ports:
-      - "3000:3000"  # Expose Grafana sur le port 3000
     networks:
       - transcendence
     environment:
@@ -125,8 +119,6 @@ services:
   node_exporter:
     image: prom/node-exporter:latest
     container_name: node_exporter
-    ports:
-      - "9101:9100"
     networks:
       - transcendence
 
@@ -140,8 +132,6 @@ services:
       - xpack.security.enabled=false # Sécurité activée
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD} # Mot de passe pour l'accès
       - ES_JAVA_OPTS=-Xms2g -Xmx2g # Configuration de la mémoire
-    ports:
-      - "9200:9200" # Port pour l'accès HTTP
     volumes:
       - es_data:/usr/share/elasticsearch/data # Données persistantes
     networks:
@@ -156,8 +146,6 @@ services:
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     volumes:
       - ./Logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-    ports:
-      - "5044:5044" # Port pour la collecte de logs
     networks:
       - transcendence
     depends_on:
@@ -185,8 +173,6 @@ services:
     build:
       context: ./Kibana  # Répertoire où se trouve ton Dockerfile pour Kibana
       dockerfile: Dockerfile  # Nom du Dockerfile
-    ports:
-      - "5601:5601"
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     networks:

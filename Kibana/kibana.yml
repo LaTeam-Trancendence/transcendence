@@ -1,7 +1,12 @@
 # kibana.yml
 
 # Autorise Kibana à être accessible de l'extérieur du conteneur (utilise l'adresse 0.0.0.0)
+server.port: 5601
 server.host: "0.0.0.0"
+server.basePath: "/kibana"
+server.publicBaseUrl: "http://localhost:5601/kibana"
+
+server.rewriteBasePath: true
 
 # Configure la connexion à Elasticsearch
 elasticsearch.hosts: ["http://elasticsearch:9200"]

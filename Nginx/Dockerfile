@@ -15,7 +15,7 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 RUN chown -R nginx:nginx /etc/ssl/private
 
 # Copier le fichier de configuration personnalisé
-COPY nginx.conf /etc/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Exposer le port 8443 pour HTTPS
 EXPOSE 8443
