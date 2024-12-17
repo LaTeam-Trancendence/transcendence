@@ -4,7 +4,7 @@ DOCKER_COMPOSE = docker compose --project-name ${NAME}
 GREEN := \033[32m
 RESET := \033[0m
 
-all: create-volumes
+all: re create-volumes
 	${DOCKER_COMPOSE} up -d
 
 create-volumes:
