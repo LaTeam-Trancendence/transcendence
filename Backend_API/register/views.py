@@ -17,14 +17,14 @@ logger = logging.getLogger(__name__)
 
 class RegisterUserView(APIView):
     print('image')
-    permission_classes = [AllowAny] 
-    
+    permission_classes = [AllowAny]
+
     # def get(self, request, *args, **kwargs):    #test request Get
     #      return CustomResponse.success({
     #         "status": "success",
     #         "message": "Veuillez envoyer une requête POST pour vous inscrire.",
     #     }, status_code=200)
-    
+
     def post(self, request, *args, **kwargs):
         data=request.data
         serializer = UserSerializer(data=request.data)
@@ -39,14 +39,14 @@ class RegisterUserView(APIView):
             {"error": serializer.errors},
             status_code=400
         ))
-    
+
 
 # \\ ___________________login___________________________________//
 
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
-      
+
     def post(self, request, *args, **kwargs):
 
         serializer = LoginSerializer(data=request.data)
@@ -72,11 +72,11 @@ class LoginView(APIView):
                 {"error": "le pseudo ou le mdp n'est pas valide"},
                 status_code=401
         ))
-            
-            
+
+
  # \\___________________logout________________________//
- 
- 
+
+
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -94,19 +94,19 @@ class LogoutView(APIView):
                 {"error": "Aucune session active."},
                 status_code=400
             )
-        
+
  # \\_________________Anonim/delete________________________//
- 
- 
+
+
 class DeleteAccountView(APIView):
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request):
         user = request.user
-        
-        
+
+
         if user:
-            anoCustomUser(user),         
+            anoCustomUser(user),
             return CustomResponse.success(
             {"message": "Objet supprimé avec succès."},
             status_code=200)
@@ -114,38 +114,39 @@ class DeleteAccountView(APIView):
                 {"errors": anoCustomUser.errors},
                 status_code=400
         ))
-        
+
 def anoCustomUser(user):
 
 
     if user.image:
-        image_path = os.path.join(settings.MEDIA_ROOT, user.image.name)
+        image_path = os.path.join(settings.MEDIA_ROOT, 'player_picture', user.image.name)
 
     if os.path.isfile(image_path):
             os.remove(image_path)
-    
+
     user.username = f"user_{user.id}"
+    user.password = "6X@9UvM2tp*+"
     user.image = 'player_picture/default_avatar.png'
     user.is_anonymized = True
     user.save()
-    
- # \\___________Healthcheck pour docker________________//       
-     
-            
+
+ # \\___________Healthcheck pour docker________________//
+
+
 class HealthCheckView(APIView):
-    
+
     def get(self, request):
         return (CustomResponse.success(
             {"status": "ok"},
             status_code=200
         ))
-            
-            
-            
+
+
+
 # class DeleteAccountView(APIView):
-    
+
 #     def delete(self, request, *args, **kwargs):
-        
+
 #         user = request.user
 #         if user.is_authenticated:
 #             anonymize_and_delete_user(user)

@@ -30,17 +30,18 @@ class Command(BaseCommand):
 
 
         default_image_path = os.path.join(settings.MEDIA_ROOT, 'player_picture', 'default_avatar.png')
-    
+
         # Vérifier si l'image par défaut existe
         if not os.path.isfile(default_image_path):
             raise FileNotFoundError(f"L'image par défaut {default_image_path} est introuvable.")
-    
+
         # Créer une copie de l'image par défaut avec le nom personnalisé
-        new_image_name = f"player_picture/user_{user.id}.png"
+        new_image_name = f"player_picture/{user.id}.png"
         new_image_path = os.path.join(settings.MEDIA_ROOT, new_image_name)
         copyfile(default_image_path, new_image_path)
-        
+
         user.username = f"user_{user.id}"
+        user.password = "6X@9UvM2tp*+"
         user.image = new_image_name
         user.is_anonymized = True
         user.save()

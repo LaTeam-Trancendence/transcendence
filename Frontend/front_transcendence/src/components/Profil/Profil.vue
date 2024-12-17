@@ -141,11 +141,11 @@
                             class="p-2 text-white bg-gray-800 mb-3 rounded-lg shadow-lg flex justify-between items-center"
                         >
                             <div class="flex items-center space-x-3">
-                                <img
+                                <!-- <img
                                     class="w-8 h-8"
                                     :src="'https://localhost:8443/api/media/player_picture/' + friend.id + '.png'"
                                     alt="Image de votre ami"
-                                />
+                                /> -->
                                 <span>{{friend.username}}</span>
                             </div>
                             <div

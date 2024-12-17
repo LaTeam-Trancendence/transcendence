@@ -16,9 +16,9 @@
                             @click="toggleMenu(index)"
                             class="w-full text-left bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg shadow-lg flex items-center space-x-2"
                         >
-                            <img 
-                                class="w-8 h-8" 
-                                :src="'https://localhost:8443/api/media/player_picture/' + player.id + '.png'" 
+                            <img
+                                class="w-8 h-8"
+                                :src="'https://localhost:8443/api/media/player_picture/' + player.id + '.png'"
                                 alt="Image de votre ami"
                             />
                             <span>{{player.username}}</span>
