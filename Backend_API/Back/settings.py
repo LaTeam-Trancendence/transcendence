@@ -102,6 +102,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://localhost:5173",
     "http://localhost:8000",
+	"https://localhost:8443",
 ]
 
 CORS_ALLOW_HEADERS = [
@@ -114,11 +115,13 @@ CORS_ALLOW_HEADERS = [
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:8080",
     "http://localhost:5173",  # Ajouter votre frontend ici
+	"https://localhost:8443",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8080",
     "http://localhost:5173",  # Ajoutez l'origine de votre frontend
+	"https://localhost:8443",
 ]
 
 CSRF_COOKIE_NAME = 'csrftoken'

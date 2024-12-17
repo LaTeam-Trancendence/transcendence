@@ -36,7 +36,13 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         username = validated_data['username']
         image = validated_data.pop('image', None)
-        
+        image_name = ""
+
+        user = CustomUser.objects.create_user(
+            username=validated_data['username'],
+            password=validated_data['password'],
+            image=validated_data.get('image')
+        )
 
         # Sauvegarder le fichier image si présent
         if image:
@@ -45,15 +51,15 @@ class UserSerializer(serializers.ModelSerializer):
             valid_extensions = ['.png']
             if ext not in valid_extensions:
                 ext == ['.png'],
-            image_name = f"{username}{'.png'}"
-        
+            image_name = f"{user.id}.png"
+
             fs = FileSystemStorage(location=os.path.join(str(settings.MEDIA_ROOT), 'player_picture'))
             filename = fs.save(image_name, image)
             validated_data['image'] = f"player_picture/{filename}"
         else:
    
             default_image_path = os.path.join(settings.MEDIA_ROOT, 'player_picture', 'default_avatar.png')
-            image_name = f"{username}.png"
+            image_name = f"{user.id}.png"
             
             with open(default_image_path, 'rb') as default_image:
                 with open(os.path.join(settings.MEDIA_ROOT, 'player_picture', image_name), 'wb') as new_image:
@@ -61,12 +67,14 @@ class UserSerializer(serializers.ModelSerializer):
             
             validated_data['image'] = f"player_picture/{image_name}"
 
-        user = CustomUser.objects.create_user(
-            username=validated_data['username'],
-            password=validated_data['password'],
-            image=validated_data.get('image')
-        )
-        
+        with open(os.path.join(settings.MEDIA_ROOT, 'player_picture', image_name), 'rb') as image:
+            user.image.save(
+                content=image,
+                name=validated_data['image']
+            )
+
+        user.save()
+
         return user
     
 

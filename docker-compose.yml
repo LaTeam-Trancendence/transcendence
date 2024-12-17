@@ -43,6 +43,7 @@ services:
         condition: service_started
     volumes:
       - logs:/mnt/logs  # Persistance des logs
+      - media_data:/mnt/media  # Montage des fichiers média
 
 
   postgres:
@@ -191,7 +192,7 @@ volumes:
   media_data:  # Volume pour stocker les fichiers média
     driver_opts:
       type: none
-      device: ${HOME}/transcendence/api_media
+      device: ${HOME}/transcendence/media
       o: bind
 
   prometheus_data:  # Volume pour stocker les données Prometheus

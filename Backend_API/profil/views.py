@@ -75,7 +75,7 @@ class DisplayPlayerView(APIView):
 		if image:
 
 			fs = FileSystemStorage(location=settings.MEDIA_ROOT)
-			filename = fs.save('player_picture/' + image.name, image)
+			filename = fs.save('player_picture/' + str(player.pk), image)
 			file_url = fs.url(filename)
 	
 			player.user.image = file_url
@@ -95,7 +95,7 @@ class DisplayPlayerView(APIView):
 		return CustomResponse.error(
 				{"saisie non valide"},
 				status_code=400)
-			
+
 	# def put(self, request):
 	#     user = request.user
 	#     serializer = CustomPlayerSerializer(user)
