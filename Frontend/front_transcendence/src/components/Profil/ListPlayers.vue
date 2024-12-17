@@ -85,6 +85,7 @@
 
                     if(response.data && response.data.status === 'success'){
                         this.players = response.data.data;
+                        console.log(this.players);
                     } else {
                         throw new Error("Format inattendu de la réponse de l'API");
                     }

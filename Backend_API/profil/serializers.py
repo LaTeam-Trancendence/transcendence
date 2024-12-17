@@ -47,7 +47,7 @@ class ListPlayerSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Player
-        fields = ['username', 'friends', 'status', 'win_pong', 'lose_pong', 'win_tictactoe', 'lose_tictactoe']
+        fields = ['id', 'username', 'friends', 'status', 'win_pong', 'lose_pong', 'win_tictactoe', 'lose_tictactoe']
         
         
 # class PlayerImageUploadSerializer(serializers.ModelSerializer):
