@@ -59,7 +59,7 @@ services:
     env_file:
       - .env
     volumes:
-      - postgres_data:/var/lib/postgresql  # Persistance des données
+      - postgres_data:/var/lib/postgresql/data  # Persistance des données
       - logs:/mnt/logs  # Persistance des logs
     healthcheck:
       test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-p", "5432", "-t", "2", "-U", "postgres"]

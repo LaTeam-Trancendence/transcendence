@@ -5,7 +5,8 @@ VOLUME="postgresql media prometheus grafana elasticsearch logstash/data logstash
 VOLUME_DIR=${HOME}/${NAME}
 
 if [ -d "$VOLUME_DIR/media" ]; then
-	rm -rf "$VOLUME_DIR/media";
+	# rm -rf "$VOLUME_DIR/media";
+	echo pouet
 fi
 for volume in $VOLUME; do
 	if [ ! -d "$VOLUME_DIR/$volume" ]; then
