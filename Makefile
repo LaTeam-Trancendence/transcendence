@@ -18,6 +18,7 @@ clean:
 
 fclean: clean
 	@printf "Removing images and networks, but keeping volumes...\n"
+	docker run -v $HOME:/mnt alpine rm -rf /mnt/transcendence
 	docker network rm $$(docker network ls -q --filter name=${NAME}) || true
 	docker image rm $$(docker images -q --filter reference="${NAME}_*") || true
 
