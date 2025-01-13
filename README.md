@@ -32,19 +32,19 @@ Voici les étapes pour exécuter l'application Transcendence :
    Cette commande déploie tous les services Docker nécessaires pour l'application.
 
 3. **Accéder à l'application** :
-   Rendez-vous sur [https://localhost:8433](https://localhost:8433) pour accéder à l'application.
+   Rendez-vous sur https://localhost:8433 pour accéder à l'application.
 
 ## 📊 Accéder aux Dashboards de Monitoring
 Pour assurer le suivi des différents services du projet, des dashboards de monitoring sont disponibles :
 
 ### 🔹 Grafana
-- **URL** : [https://localhost:8433/gafana/login](https://localhost:8433/gafana/login)
+- **URL** : https://localhost:8433/gafana/login
 - **Fonctionnalités** : Monitoring des métriques des services via Prometheus.
 - **Connexion** : Utilisez les logins par défaut lors de la première connexion, puis choisissez un mot de passe de votre choix pour sécuriser l'accès.
 
 
 ### 🔹 ELK Stack (Elasticsearch, Logstash, Kibana)
-- **Kibana** : [https://localhost:8433/kibana](https://localhost:8433/kibana)
+- **Kibana** : https://localhost:8433/kibana
 - **Fonctionnalités** :
   - Visualisation des logs collectés des services Docker (Nginx, Frontend, API et PostgreSQL).
   - Accès à des dashboards préconfigurés pour faciliter l'analyse des logs.
