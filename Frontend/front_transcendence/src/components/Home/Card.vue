@@ -12,7 +12,7 @@
 				><i class="fa-solid fa-gamepad mr-2"></i> {{$t('Play')}}
 				</a>
 				<a
-					@click.prevent="navigateTo('/custom')"
+					@click.prevent="custom()"
 					class="text-white bg-gradient-to-br from-gray-600 to-gray-400 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-2 py-1 text-center cursor-pointer"
 				><i class="fa-solid fa-sliders mr-1"></i> {{$t('Preferences')}}
 				</a>
@@ -32,7 +32,7 @@
 				><i class="fa-solid fa-gamepad mr-2"></i> {{$t('Play')}}
 				</a>
 				<a
-					@click.prevent="navigateTo('/custom')"
+					@click.prevent="custom()"
 					class="text-white bg-gradient-to-br from-gray-600 to-gray-400 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-2 py-1 text-center cursor-pointer"
 				><i class="fa-solid fa-sliders mr-1"></i> {{$t('Preferences')}}
 				</a>
@@ -61,6 +61,9 @@ export default {
 			} else {
 				this.$router.push('/login');
 			}
+		},
+		custom() {
+			this.$router.push('/custom');
 		},
 	},
 };

@@ -25,10 +25,10 @@
 			</router-link>
 			<!-- Score & Touches -->
 			<KeybindInfo class="hidden md:block"/>
-			<h2 v-if="!GetTournament?.playing" class="absolute mr-52 justify-center top-24 text-4xl" :style="{color: GetColor1State}">{{score_player1}}</h2>
-			<h2 v-if="!GetTournament?.playing" class="absolute ml-52 justify-center top-24 text-4xl" :style="{color: GetColor1State}">{{score_player2}}</h2>
-			<h2 v-if="GetTournament?.playing" class="absolute mr-96 justify-center top-24 text-4xl" :style="{color: GetColor1State}">{{GetTournament.actualround.players[0].name}} - {{score_player1}}</h2>
-			<h2 v-if="GetTournament?.playing" class="absolute ml-96 justify-center top-24 text-4xl" :style="{color: GetColor1State}">{{GetTournament.actualround.players[1].name}} - {{score_player2}}</h2>
+			<h2 v-if="!GetTournament?.playing" class="absolute mr-52 justify-center top-28 text-4xl" :style="{color: GetColor1State}">{{score_player1}}</h2>
+			<h2 v-if="!GetTournament?.playing" class="absolute ml-52 justify-center top-28 text-4xl" :style="{color: GetColor1State}">{{score_player2}}</h2>
+			<h2 v-if="GetTournament?.playing" class="absolute mr-96 justify-center top-28 text-4xl" :style="{color: GetColor1State}">{{GetTournament.actualround.players[0].name}} - {{score_player1}}</h2>
+			<h2 v-if="GetTournament?.playing" class="absolute ml-96 justify-center top-28 text-4xl" :style="{color: GetColor1State}">{{GetTournament.actualround.players[1].name}} - {{score_player2}}</h2>
 			<!-- Paddle lantern -->
 			<img
 				class="absolute"

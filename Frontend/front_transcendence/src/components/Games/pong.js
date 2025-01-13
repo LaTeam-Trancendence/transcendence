@@ -45,6 +45,8 @@ export default function startPongGame(canvas, onPaddleMove, GetScore) {
     let ball_more_speed_x = 0;
     let ball_more_speed_y = 0;
 
+    let isResetting = false;
+
     // Fps
     const FPS = 60;
     const FRAME_DURATION = 1000 / FPS; // Durée de chaque frame en millisecondes (≈16.67ms)
@@ -115,21 +117,30 @@ export default function startPongGame(canvas, onPaddleMove, GetScore) {
         }
     
         // Si la balle sort du canvas (score ou reset)
-        if (ballX <= 0 || ballX >= canvas.width) {
+        // if (ballX <= 0 || ballX >= canvas.width) {
+        const tolerance = 5;
+
+        // Si la balle sort du canvas (score ou reset)
+        if (ballX <= 0 - ballSize - tolerance || ballX >= canvas.width + ballSize + tolerance) {
+            console.log(ballX - ballSize , 0, ballX + ballSize , canvas.width);
             resetBall();
         }
     }
 
     let isSpeedIncreaseActive = true;
     function resetBall() {
+        if (isResetting) return; // Empêcher les appels multiples
+        isResetting = true;
+        // console.log("ici")
         // Score et envoie score
-        if (ballX >= canvas.width) {
+        if (ballX + ballSize  >= canvas.width) {
             player1 = player1 + 1;
         }
-        if (ballX <= 0) {
+        else if (ballX - ballSize <= 0) {
             player2 = player2 + 1;
         }
         if (typeof GetScore === 'function') {
+            // console.log(player1, player2)
             GetScore({player1, player2});
         }
 
@@ -153,6 +164,7 @@ export default function startPongGame(canvas, onPaddleMove, GetScore) {
         setTimeout(() => {
             ballSpeedX = 8 * store.getters["GetBallSpeedManualState"];
             isSpeedIncreaseActive = true;
+            isResetting = false; // Déverrouiller après réinitialisation
         }, "2500");
     }
   

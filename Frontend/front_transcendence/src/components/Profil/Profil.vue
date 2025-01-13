@@ -21,11 +21,11 @@
                     <div v-else>
                         <img :src="img" class="w-44 h-44 md:w-52 md:h-52 xl:w-96 xl:h-96 rounded-xl object-cover mr-4 mb-0" alt="Image de profil"/>
                     </div>
-                    <!-- <button
+                    <!-- <button 
                         @click="replaceImage"
                         class="bg-gray-700 hover:bg-gray-600 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-lg"
                     ><i class="fa-solid fa-pen-to-square mr-2"></i>Modifier l'image</button> -->
-
+        
                     <!-- Détails du joueur -->
                     <div class="flex-1">
                         <h5 class="mb-4 text-2xl font-bold tracking-tight text-white">{{$t('Title_Info')}}</h5>
@@ -67,10 +67,10 @@
                         <p class="text-gray-300 mb-2">{{$t('Profil_Statut')}}</p>
                         <div class="flex space-x-4 mb-4">
                             <div v-for="option in statusOptions" :key="option.value" class="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    :id="option.value"
-                                    :checked="status === option.value"
+                                <input 
+                                    type="checkbox" 
+                                    :id="option.value" 
+                                    :checked="status === option.value" 
                                     @change="selectStatus(option.value)"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
                                 />
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <div class="flex items-center space-x-2">
-                            <div
+                            <div 
                                 :class="{
                                     'w-6 h-6 rounded-full': true,
                                     'bg-green-600': status === 'online',
@@ -91,7 +91,7 @@
                     </div>
                 </div>
             </div>
-
+        
             <!-- Section Statistiques -->
             <div class="w-4/5 md:w-2/3 bg-gray-900 border border-gray-600 hover:border-red-600 hover:outline outline-2 outline-red-600 rounded-lg shadow-lg p-6">
                 <div class="flex flex-col md:flex-row justify-between items-center md:items-start">
@@ -108,7 +108,7 @@
                 </div>
             </div>
         </div>
-
+        
         <!-- Amis -->
 		<div class="relative md:fixed top-4 right-0 w-4/5 md:w-1/4 h-screen md:mr-6 mt-16 md:mt-0 flex flex-col">
 			<!-- Ajout d'amis -->
@@ -128,8 +128,8 @@
 				</div>
 			</div>
             <!-- Listes d'amis -->
-            <div
-                class="relative flex-grow w-full bg-gray-900 border border-gray-600 hover:border-red-600 hover:outline outline-2 outline-red-600 rounded-lg shadow-lg"
+            <div 
+                class="relative flex-grow w-full bg-gray-900 border border-gray-600 hover:border-red-600 hover:outline outline-2 outline-red-600 rounded-lg shadow-lg" 
                 style="max-height: calc(100vh - 150px); margin-bottom: 36px; height: 500px;"
             >
                 <div class="relative p-5 h-full flex flex-col">
@@ -141,14 +141,14 @@
                             class="p-2 text-white bg-gray-800 mb-3 rounded-lg shadow-lg flex justify-between items-center"
                         >
                             <div class="flex items-center space-x-3">
-                                <!-- <img
+                                <img 
                                     class="w-8 h-8"
-                                    :src="'https://localhost:8443/api/media/player_picture/' + friend.id + '.png'"
+                                    :src="'https://localhost:8443/api/media/player_picture/' + friend.id + '.png'" 
                                     alt="Image de votre ami"
-                                /> -->
+                                />
                                 <span>{{friend.username}}</span>
                             </div>
-                            <div
+                            <div 
                                 :class="{
                                     'w-4 h-4 rounded-full': true,
                                     'bg-green-600': friend.status === 'online',
@@ -246,7 +246,7 @@
                     this.mdp = "*".repeat(12);
                     // console.log(this.mdp);
 
-                    this.img = `https://localhost:8443/api/media/player_picture/${response.data.data.id}.png`;
+                    this.img = `https://localhost:8443/api/media/player_picture/${this.id}.png`;
                     // console.log(this.img);
 
                     this.status = response.data.data.status;
@@ -310,7 +310,7 @@
 			// 	} catch (error) {
 			// 		console.error('Erreur lors de la mise à jour du image :', error.response?.data || error.message);
 			// 	}
-			// },
+			// },	
         },
         mounted() {
             this.get_profil_api();
