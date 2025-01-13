@@ -246,7 +246,7 @@
                     this.mdp = "*".repeat(12);
                     // console.log(this.mdp);
 
-                    this.img = `https://localhost:8443/api/media/player_picture/${this.id}.png`;
+                    this.img = `https://localhost:8443/api/media/player_picture/${response.data.data.id}.png`;
                     // console.log(this.img);
 
                     this.status = response.data.data.status;

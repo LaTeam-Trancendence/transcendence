@@ -117,7 +117,6 @@ class DeleteAccountView(APIView):
 
 def anoCustomUser(user):
 
-
     if user.image:
         image_path = os.path.join(settings.MEDIA_ROOT, 'player_picture', user.image.name)
 
