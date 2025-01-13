@@ -54,7 +54,7 @@ Pour importer le dashboard préconfiguré dans Kibana, suivez ces étapes :
 
    1. Cliquez sur les **3 traits** en haut à gauche.
    2. Descendez à la fin de la liste et cliquez sur **Stack Management**.
-   3. Cliquez à nouveau sur les **3 traits**.
+   3. Cliquez sur les **3 traits + fleche** dans le bandeau de gauche.
    4. Dans la catégorie **Kibana**, cliquez sur **Saved Objects**.
    5. En haut à gauche, cliquez sur **Import**.
    6. Importez le fichier `dashboard.ndjson` situé dans le dossier du projet :
