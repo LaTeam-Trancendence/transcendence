@@ -4,10 +4,6 @@ NAME=transcendence
 VOLUME="postgresql media prometheus grafana elasticsearch logstash/data logstash/logs filebeat logs"
 VOLUME_DIR=${HOME}/${NAME}
 
-if [ -d "$VOLUME_DIR/media" ]; then
-	# rm -rf "$VOLUME_DIR/media";
-	echo pouet
-fi
 for volume in $VOLUME; do
 	if [ ! -d "$VOLUME_DIR/$volume" ]; then
 		printf "Creating directory: $VOLUME_DIR/$volume\n";

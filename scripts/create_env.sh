@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Chemin du .env source
-SOURCE_ENV="/home/gabarnou/sgoinfre/.env"
+SOURCE_ENV="/home/$USER/sgoinfre/.env"
 
 # Chemin du .env cible (à la racine)
 TARGET_ENV="./.env"
