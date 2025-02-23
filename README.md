@@ -38,13 +38,13 @@ Voici les étapes pour exécuter l'application Transcendence :
 Pour assurer le suivi des différents services du projet, des dashboards de monitoring sont disponibles :
 
 ### 🔹 Grafana
-- **URL** : https://localhost:8433/gafana/login
+- **URL** : https://localhost:8443/gafana
 - **Fonctionnalités** : Monitoring des métriques des services via Prometheus.
 - **Connexion** : Utilisez les logins par défaut lors de la première connexion, puis choisissez un mot de passe de votre choix pour sécuriser l'accès.
 
 
 ### 🔹 ELK Stack (Elasticsearch, Logstash, Kibana)
-- **Kibana** : https://localhost:8433/kibana
+- **Kibana** : https://localhost:8443/kibana
 - **Fonctionnalités** :
   - Visualisation des logs collectés des services Docker (Nginx, Frontend, API et PostgreSQL).
   - Accès à des dashboards préconfigurés pour faciliter l'analyse des logs.
